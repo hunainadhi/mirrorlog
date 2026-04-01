@@ -52,14 +52,14 @@ model Rater {
 model Rating {
   id        String   @id @default(cuid())
   habitId   String
-  raterId   String
+  raterId   String?
   weekStart DateTime
   score     Int
   note      String?
   createdAt DateTime @default(now())
 
   habit Habit @relation(fields: [habitId], references: [id])
-  rater Rater @relation(fields: [raterId], references: [id])
+  rater Rater? @relation(fields: [raterId], references: [id])
 }
 
 model WeeklyReport {
