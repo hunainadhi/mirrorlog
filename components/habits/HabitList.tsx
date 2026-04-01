@@ -4,10 +4,10 @@ import InviteRater from "./InviteRater";
 import Link from "next/link";
 
 interface Habit {
-    id: string;
-    title: string;
-    description: string | null;
-    createdAt: string;
+  id: string;
+  title: string;
+  description: string | null;
+  createdAt: Date | string;
 }
 
 interface Props {
