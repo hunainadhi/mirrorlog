@@ -3,17 +3,14 @@ import { db } from "./db";
 
 export async function getCurrentUser() {
   const { userId } = await auth();
-
   if (!userId) return null;
 
-  // Check if user exists in our DB
   const existingUser = await db.user.findUnique({
     where: { clerkId: userId },
   });
 
   if (existingUser) return existingUser;
 
-  // If not, create them (first time login)
   const clerkUser = await currentUser();
   if (!clerkUser) return null;
 
@@ -22,6 +19,7 @@ export async function getCurrentUser() {
       clerkId: userId,
       email: clerkUser.emailAddresses[0].emailAddress,
       name: `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim(),
+      onboarded: false,
     },
   });
 

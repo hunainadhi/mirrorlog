@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
-
+  if (!user.onboarded) redirect("/dashboard/welcome");
   const habits = await db.habit.findMany({
     where: { userId: user.id, active: true },
     orderBy: { createdAt: "desc" },

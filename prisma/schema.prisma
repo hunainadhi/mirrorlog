@@ -14,12 +14,13 @@ enum Plan {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  name      String?
-  plan      Plan     @default(FREE)
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  clerkId    String   @unique
+  email      String   @unique
+  name       String?
+  plan       Plan     @default(FREE)
+  onboarded  Boolean  @default(false)
+  createdAt  DateTime @default(now())
 
   habits  Habit[]
   reports WeeklyReport[]
