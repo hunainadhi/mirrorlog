@@ -1,11 +1,11 @@
-export const dynamic = "force-dynamic";
+
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { UserButton } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import HabitsDashboard from "@/components/habits/HabitsDashboard";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
