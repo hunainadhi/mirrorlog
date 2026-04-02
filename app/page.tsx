@@ -106,8 +106,8 @@ export default async function LandingPage() {
             margin: "0 0 24px",
             color: "#f0ede8",
           }}>
-            See yourself through<br />
-            <span style={{ color: "#c9f97f" }}>your circle's eyes</span>
+            Accountability from the people<br />
+          <span style={{ color: "#c9f97f" }}>who actually know you</span>
           </h1>
 
           <p style={{
@@ -117,7 +117,7 @@ export default async function LandingPage() {
             maxWidth: "520px",
             margin: "0 auto 48px",
           }}>
-            Stop self-reporting your habits. Invite the people around you to rate your consistency anonymously every week. See the gap between who you think you are and who you actually are.
+            Add a habit. Invite friends who see your daily life. Every week they hold up a mirror — anonymously rating how consistent you actually are.
           </p>
 
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
@@ -216,10 +216,10 @@ export default async function LandingPage() {
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
             {[
-              { step: "01", emoji: "🎯", title: "Set a habit", body: "Describe a goal that's visible to people around you. Going to the gym, waking up early, staying off your phone." },
-              { step: "02", emoji: "👥", title: "Invite your circle", body: "Send a link to 3–5 people who can observe you. No account needed. Takes them 60 seconds a week." },
-              { step: "03", emoji: "🔒", title: "They rate anonymously", body: "Every Sunday your circle rates your consistency from 1–5. Their identity is never revealed." },
-              { step: "04", emoji: "🪞", title: "See your mirror", body: "Monday morning you see your self-score vs your circle's score. The gap is where growth happens." },
+              { step: "01", emoji: "🎯", title: "Pick a habit", body: "Choose something your friends can actually observe — hitting the gym, waking up early, eating better, staying off your phone." },
+              { step: "02", emoji: "👥", title: "Invite people who see you", body: "Send a link to 3–5 friends, family, or colleagues. No app download needed. Takes them 60 seconds a week." },
+              { step: "03", emoji: "🔒", title: "They rate you honestly", body: "Every Sunday your circle rates how consistent you've actually been from 1–5. Completely anonymous so they tell the truth." },
+              { step: "04", emoji: "🪞", title: "See your MirrorReport", body: "Every Monday your mirror reflects the truth — your self-score vs what your circle actually saw. Close the gap. Build the habit for real." },
             ].map((item) => (
               <div key={item.step} style={{
                 background: "#111",

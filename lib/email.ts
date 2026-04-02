@@ -25,7 +25,7 @@ export async function sendRaterInviteEmail({
   await resend.emails.send({
     from: FROM,
     to,
-    subject: `${ownerName}wants your honest opinion`,
+    subject: `${ownerName} wants you to track their habit`,
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 24px; background: #0f0f0f; color: #f0ede8;">
         <h1 style="font-size: 24px; margin-bottom: 8px;">MirrorLog</h1>
@@ -33,7 +33,7 @@ export async function sendRaterInviteEmail({
 
         <p style="font-size: 15px; margin-bottom: 16px;">Hey ${name},</p>
         <p style="font-size: 15px; margin-bottom: 16px;">
-  <strong style="color: #c9f97f;">${ownerName}</strong> is working on a goal and wants your honest take on how they're doing:
+  <strong style="color: #c9f97f;">${ownerName}</strong> is working on a habit and wants honest accountability from people who actually know them.
 </p>
 
         <div style="background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
@@ -77,7 +77,7 @@ export async function sendWeeklyNudgeEmail({
   await resend.emails.send({
     from: FROM,
     to,
-    subject: `How is ${ownerName} doing this week?`,
+    subject: `Time to rate ${ownerName}'s habit this week`,
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 24px; background: #0f0f0f; color: #f0ede8;">
         <h1 style="font-size: 24px; margin-bottom: 8px;">MirrorLog</h1>
@@ -85,7 +85,7 @@ export async function sendWeeklyNudgeEmail({
 
         <p style="font-size: 15px; margin-bottom: 16px;">Hey ${name},</p>
         <p style="font-size: 15px; margin-bottom: 16px;">
-  Time to rate <strong style="color: #c9f97f;">${ownerName}</strong> this week. How consistent were they?
+  How consistent has <strong style="color: #c9f97f;">${ownerName}</strong> actually been this week? Be honest — they need real feedback.
 </p>
 
         <div style="background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 24px;">

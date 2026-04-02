@@ -47,7 +47,7 @@ export default async function RatePage({ params }: Props) {
           MirrorLog
         </p>
         <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "40px" }}>
-          You've been asked to rate someone's consistency
+          Your friend is using MirrorLog to build better habits. Be their mirror — rate their consistency honestly.
         </p>
 
         <div
