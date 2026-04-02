@@ -25,7 +25,12 @@ export default async function HabitReportPage({ params }: Props) {
                 <a href="/dashboard" style={{ color: "var(--muted)", fontSize: "0.85rem", textDecoration: "none", display: "inline-block", marginBottom: "32px" }}>
                     Back to dashboard
                 </a>
-                <HabitReport habitId={id} habitTitle={habit.title} userId={user.id} />
+                <HabitReport
+                    habitId={id}
+                    habitTitle={habit.title}
+                    userId={user.id}
+                    isPro={user.plan === "PRO"}
+                />
             </div>
         </div>
     );

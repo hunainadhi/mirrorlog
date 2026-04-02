@@ -17,9 +17,10 @@ interface Props {
   habitId: string;
   habitTitle: string;
   userId: string;
+  isPro: boolean;
 }
 
-export default function HabitReport({ habitId, habitTitle, userId }: Props) {
+export default function HabitReport({ habitId, habitTitle, userId, isPro }: Props) {
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +55,6 @@ export default function HabitReport({ habitId, habitTitle, userId }: Props) {
         </p>
       </div>
 
-      {/* Self rating this week */}
       <SelfRating habitId={habitId} onRated={fetchReport} />
 
       {loading ? (
@@ -78,7 +78,6 @@ export default function HabitReport({ habitId, habitTitle, userId }: Props) {
         </div>
       ) : (
         <>
-          {/* Latest week summary */}
           {latestWeek && (
             <div
               style={{
@@ -139,7 +138,14 @@ export default function HabitReport({ habitId, habitTitle, userId }: Props) {
             </div>
           )}
 
-          {/* Trend chart */}
+          {latestWeek && (
+            <AISummary
+              habitId={habitId}
+              weekStart={latestWeek.weekStart}
+              isPro={isPro}
+            />
+          )}
+
           {weeks.length > 1 && <GapChart weeks={weeks} />}
         </>
       )}
@@ -215,6 +221,136 @@ function GapCard({ gap }: { gap: number | null }) {
       <p style={{ color: "var(--muted)", fontSize: "0.65rem", marginTop: "4px" }}>
         {description}
       </p>
+    </div>
+  );
+}
+
+function AISummary({
+  habitId,
+  weekStart,
+  isPro,
+}: {
+  habitId: string;
+  weekStart: string;
+  isPro: boolean;
+}) {
+  const [summary, setSummary] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function fetchSummary() {
+    setLoading(true);
+    const res = await fetch("/api/ai/summary", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ habitId, weekStart }),
+    });
+    const data = await res.json();
+    if (res.ok) setSummary(data.summary);
+    else setError(data.error);
+    setLoading(false);
+  }
+
+  if (!isPro) {
+    return (
+      <div
+        style={{
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+          borderRadius: "16px",
+          padding: "24px",
+          textAlign: "center",
+        }}
+      >
+        <p style={{ fontSize: "1.5rem", marginBottom: "8px" }}>✦</p>
+        <p style={{ color: "var(--text)", fontWeight: 500, marginBottom: "6px" }}>
+          AI MirrorSummary
+        </p>
+        <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "16px" }}>
+          Get a personalized plain-English summary of your week — Pro only.
+        </p>
+        
+        <a
+          href="/settings"
+          style={{
+            background: "var(--accent)",
+            color: "#0f0f0f",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+          }}
+        >
+          Upgrade to Pro
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        borderRadius: "16px",
+        padding: "24px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}
+      >
+        <p
+          style={{
+            color: "var(--muted)",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+          }}
+        >
+          ✦ AI MirrorSummary
+        </p>
+        {!summary && (
+          <button
+            onClick={fetchSummary}
+            disabled={loading}
+            style={{
+              background: "var(--accent)",
+              color: "#0f0f0f",
+              border: "none",
+              borderRadius: "8px",
+              padding: "6px 14px",
+              fontSize: "0.8rem",
+              fontWeight: 600,
+              cursor: loading ? "not-allowed" : "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+            }}
+          >
+            {loading ? "Generating..." : "Generate"}
+          </button>
+        )}
+      </div>
+
+      {error && (
+        <p style={{ color: "#ff6b6b", fontSize: "0.85rem" }}>{error}</p>
+      )}
+
+      {summary ? (
+        <p style={{ color: "var(--text)", fontSize: "0.9rem", lineHeight: 1.7 }}>
+          {summary}
+        </p>
+      ) : (
+        !loading && (
+          <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
+            Click generate to get your personalized weekly summary.
+          </p>
+        )
+      )}
     </div>
   );
 }
