@@ -110,9 +110,23 @@ export default function HabitReport({ habitId, habitTitle, userId, isPro, aiSumm
                             </div>
                             <button
                                 onClick={() => {
-                                    const url = `${window.location.origin}/api/og/report?habitId=${habitId}&weekStart=${latestWeek.weekStart}`;
+                                    const gap = latestWeek.gapScore;
+                                    const gapLabel = gap === null ? "—" : gap > 0 ? `+${gap}` : `${gap}`;
+                                    const params = new URLSearchParams({
+                                        title: habitTitle,
+                                        name: "My",
+                                        self: String(latestWeek.selfScore ?? "—"),
+                                        circle: String(latestWeek.circleScore ?? "—"),
+                                        gap: gapLabel,
+                                        week: new Date(latestWeek.weekStart).toLocaleDateString("en-US", {
+                                            month: "long",
+                                            day: "numeric",
+                                            year: "numeric",
+                                        }),
+                                    });
+                                    const url = `${window.location.origin}/api/og/report?${params.toString()}`;
                                     navigator.clipboard.writeText(url);
-                                    alert("Report card link copied! Share it anywhere.");
+                                    alert("Report card link copied!");
                                 }}
                                 style={{
                                     marginTop: "16px",
