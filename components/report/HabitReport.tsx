@@ -31,7 +31,11 @@ export default function HabitReport({ habitId, habitTitle, userId, isPro, aiSumm
         setWeeks(data.weeks || []);
         setLoading(false);
     }
-
+    async function handleShare() {
+        const url = `${window.location.origin}/api/og/report?habitId=${habitId}&weekStart=${latestWeek.weekStart}`;
+        await navigator.clipboard.writeText(url);
+        alert("Report card link copied! Share it anywhere.");
+    }
     useEffect(() => {
         fetchReport();
     }, [habitId]);
@@ -104,7 +108,27 @@ export default function HabitReport({ habitId, habitTitle, userId, isPro, aiSumm
                                 <ScoreCard label="Circle" score={latestWeek.circleScore} />
                                 <GapCard gap={latestWeek.gapScore} />
                             </div>
-
+                            <button
+                                onClick={() => {
+                                    const url = `${window.location.origin}/api/og/report?habitId=${habitId}&weekStart=${latestWeek.weekStart}`;
+                                    navigator.clipboard.writeText(url);
+                                    alert("Report card link copied! Share it anywhere.");
+                                }}
+                                style={{
+                                    marginTop: "16px",
+                                    background: "transparent",
+                                    border: "1px solid var(--border)",
+                                    borderRadius: "8px",
+                                    padding: "8px 16px",
+                                    color: "var(--muted)",
+                                    fontSize: "0.8rem",
+                                    cursor: "pointer",
+                                    width: "100%",
+                                    fontFamily: "'DM Sans', sans-serif",
+                                }}
+                            >
+                                Share Report Card
+                            </button>
                             {latestWeek.notes.length > 0 && (
                                 <div style={{ marginTop: "20px" }}>
                                     <p
