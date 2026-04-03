@@ -31,11 +31,7 @@ export default function HabitReport({ habitId, habitTitle, userId, isPro, aiSumm
         setWeeks(data.weeks || []);
         setLoading(false);
     }
-    async function handleShare() {
-        const url = `${window.location.origin}/api/og/report?habitId=${habitId}&weekStart=${latestWeek.weekStart}`;
-        await navigator.clipboard.writeText(url);
-        alert("Report card link copied! Share it anywhere.");
-    }
+
     useEffect(() => {
         fetchReport();
     }, [habitId]);
@@ -108,41 +104,7 @@ export default function HabitReport({ habitId, habitTitle, userId, isPro, aiSumm
                                 <ScoreCard label="Circle" score={latestWeek.circleScore} />
                                 <GapCard gap={latestWeek.gapScore} />
                             </div>
-                            <button
-                                onClick={() => {
-                                    const gap = latestWeek.gapScore;
-                                    const gapLabel = gap === null ? "—" : gap > 0 ? `+${gap}` : `${gap}`;
-                                    const params = new URLSearchParams({
-                                        title: habitTitle,
-                                        name: "My",
-                                        self: String(latestWeek.selfScore ?? "—"),
-                                        circle: String(latestWeek.circleScore ?? "—"),
-                                        gap: gapLabel,
-                                        week: new Date(latestWeek.weekStart).toLocaleDateString("en-US", {
-                                            month: "long",
-                                            day: "numeric",
-                                            year: "numeric",
-                                        }),
-                                    });
-                                    const url = `${window.location.origin}/api/og/report?${params.toString()}`;
-                                    navigator.clipboard.writeText(url);
-                                    alert("Report card link copied!");
-                                }}
-                                style={{
-                                    marginTop: "16px",
-                                    background: "transparent",
-                                    border: "1px solid var(--border)",
-                                    borderRadius: "8px",
-                                    padding: "8px 16px",
-                                    color: "var(--muted)",
-                                    fontSize: "0.8rem",
-                                    cursor: "pointer",
-                                    width: "100%",
-                                    fontFamily: "'DM Sans', sans-serif",
-                                }}
-                            >
-                                Share Report Card
-                            </button>
+
                             {latestWeek.notes.length > 0 && (
                                 <div style={{ marginTop: "20px" }}>
                                     <p
