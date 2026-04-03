@@ -133,8 +133,8 @@
 
 import { ImageResponse } from "@vercel/og";
 
-export const dynamic = "force-dynamic";
-
+//export const dynamic = "force-dynamic";
+export const runtime = "edge";
 export async function GET(req: Request) {
   try {
     return new ImageResponse(
