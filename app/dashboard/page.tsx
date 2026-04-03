@@ -47,17 +47,48 @@ export default async function DashboardPage() {
             >
               MirrorLog
             </h1>
-            <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginTop: "6px" }}>
-              {user.name} · {user.plan} plan
-            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
+              <p style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, margin: 0 }}>
+                {user.name}
+              </p>
+              <span style={{ color: "var(--border)" }}>·</span>
+              <span style={{
+                background: user.plan === "PRO" ? "var(--accent)" : "var(--surface)",
+                color: user.plan === "PRO" ? "#0f0f0f" : "var(--muted)",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                padding: "3px 10px",
+                borderRadius: "100px",
+                border: "1px solid var(--border)",
+                letterSpacing: "0.05em",
+              }}>
+                {user.plan}
+              </span>
+            </div>
           </div>
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: { width: 36, height: 36 },
-              },
-            }}
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <a href="/dashboard/settings" style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "8px",
+              padding: "8px 14px",
+              color: "var(--muted)",
+              fontSize: "0.8rem",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+            }}>
+              ⚙️ Settings
+            </a>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: { width: 48, height: 48 },
+                },
+              }}
+            />
+          </div>
         </div>
 
         <HabitsDashboard initialHabits={habits} />
