@@ -178,7 +178,7 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                     fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
-                  {cycle === "monthly" ? "Monthly — $6" : "Yearly — $48"}
+                  {cycle === "monthly" ? "Monthly — $3" : "Yearly — $24"}
                   {cycle === "yearly" && (
                     <span style={{ marginLeft: "6px", fontSize: "0.7rem" }}>Save 33%</span>
                   )}
@@ -225,7 +225,7 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                 fontFamily: "'DM Sans', sans-serif",
               }}
             >
-              {loading === "upgrade" ? "Redirecting..." : `Upgrade to Pro — ${billingCycle === "monthly" ? "$6/mo" : "$48/yr"}`}
+              {loading === "upgrade" ? "Redirecting..." : `Upgrade to Pro — ${billingCycle === "monthly" ? "$3/mo" : "$24/yr"}`}
             </button>
           </div>
         )}

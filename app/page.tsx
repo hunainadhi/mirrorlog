@@ -262,7 +262,7 @@ export default async function LandingPage() {
               },
               {
                 name: "Pro",
-                price: "$6/mo",
+                price: "$3/mo",
                 features: ["5 habits", "8 raters", "Full history", "AI weekly summary"],
                 cta: "Upgrade to Pro",
                 href: "/sign-up",
