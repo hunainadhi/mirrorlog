@@ -7,6 +7,7 @@ interface Props {
     name: string | null;
     email: string;
     plan: string;
+    stripeSubId: string | null;
   };
   monthlyPriceId: string;
   yearlyPriceId: string;
@@ -15,6 +16,7 @@ interface Props {
 export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: Props) {
   const [loading, setLoading] = useState<string | null>(null);
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+  const [cancelled, setCancelled] = useState(false);
 
   async function handleUpgrade() {
     const priceId = billingCycle === "monthly" ? monthlyPriceId : yearlyPriceId;
@@ -28,6 +30,15 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
 
     const data = await res.json();
     if (data.url) window.location.href = data.url;
+    setLoading(null);
+  }
+
+  async function handleCancel() {
+    if (!confirm("Are you sure you want to cancel? You'll keep Pro until the end of your billing period.")) return;
+    setLoading("cancel");
+
+    const res = await fetch("/api/stripe/cancel", { method: "POST" });
+    if (res.ok) setCancelled(true);
     setLoading(null);
   }
 
@@ -99,9 +110,32 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                 ACTIVE
               </span>
             </div>
-            <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
+            <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "16px" }}>
               You have access to all Pro features including AI MirrorSummary, 5 habits, and 8 raters per habit.
             </p>
+            {!cancelled ? (
+              <button
+                onClick={handleCancel}
+                disabled={loading === "cancel"}
+                style={{
+                  background: "transparent",
+                  border: "1px solid var(--border)",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  color: "var(--muted)",
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  width: "100%",
+                  fontFamily: "'DM Sans', sans-serif",
+                }}
+              >
+                {loading === "cancel" ? "Cancelling..." : "Cancel subscription"}
+              </button>
+            ) : (
+              <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "8px" }}>
+                Subscription cancelled. You'll keep Pro until the end of your billing period.
+              </p>
+            )}
           </div>
         ) : (
           <div>
