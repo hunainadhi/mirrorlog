@@ -1,7 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { db } from "@/lib/db";
 
-export const runtime = "edge";
+export const runtime = "node.js";
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const habitId = searchParams.get("habitId");
