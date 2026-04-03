@@ -111,7 +111,7 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
               </span>
             </div>
             <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "16px" }}>
-              You have access to all Pro features including AI MirrorSummary, 5 habits, and 8 raters per habit.
+              You have access to all Pro features including AI MirrorSummary, 10 habits, and 8 raters per habit.
             </p>
             {!cancelled ? (
               <button
