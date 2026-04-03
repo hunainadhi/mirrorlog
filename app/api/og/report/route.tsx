@@ -1,8 +1,8 @@
 import { ImageResponse } from "@vercel/og";
 import { db } from "@/lib/db";
 
-export const runtime = "nodejs";
-
+//export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const habitId = searchParams.get("habitId");
