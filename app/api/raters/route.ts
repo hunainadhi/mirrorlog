@@ -83,3 +83,26 @@ export async function POST(req: Request) {
 
   return NextResponse.json(rater, { status: 201 });
 }
+
+export async function DELETE(req: Request) {
+  const user = await getCurrentUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { searchParams } = new URL(req.url);
+  const raterId = searchParams.get("raterId");
+  if (!raterId) return NextResponse.json({ error: "raterId required" }, { status: 400 });
+
+  // Verify rater belongs to a habit owned by user
+  const rater = await db.rater.findFirst({
+    where: { id: raterId },
+    include: { habit: true },
+  });
+
+  if (!rater || rater.habit.userId !== user.id) {
+    return NextResponse.json({ error: "Rater not found" }, { status: 404 });
+  }
+
+  await db.rater.delete({ where: { id: raterId } });
+
+  return NextResponse.json({ success: true });
+}
