@@ -25,8 +25,8 @@ export async function POST(req: Request) {
   }
 
   const isSunday = new Date().getDay() === 0;
-  const isMonday = new Date().getDay() === 1;
-  
+ //const isMonday = new Date().getDay() === 1;
+  const isMonday = true;// for testing only
   const habits = await db.habit.findMany({
     where: { active: true },
     include: { raters: true, user: true },
@@ -58,8 +58,8 @@ export async function POST(req: Request) {
 
   // Monday — send MirrorReport emails to owners
   if (isMonday) {
-    const lastWeekStart = getLastWeekStart();
-
+    //const lastWeekStart = getLastWeekStart();
+    const lastWeekStart = getWeekStart(); //for testing only
     for (const habit of habits) {
       try {
         // Get all ratings for last week
