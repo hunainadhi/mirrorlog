@@ -20,6 +20,7 @@ model User {
   name             String?
   plan             Plan     @default(FREE)
   onboarded        Boolean  @default(false)
+  aiSummaryCount Int @default(0)
   stripeCustomerId String?  @unique
   stripePriceId    String?
   stripeSubId      String?

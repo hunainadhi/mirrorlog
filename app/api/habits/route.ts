@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 
-const FREE_HABIT_LIMIT = 1;
-const PRO_HABIT_LIMIT = 5;
+const FREE_HABIT_LIMIT = 2;
+const PRO_HABIT_LIMIT = 10;
 
 // GET /api/habits — fetch all habits for logged in user
 export async function GET() {

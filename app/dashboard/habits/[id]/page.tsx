@@ -30,6 +30,7 @@ export default async function HabitReportPage({ params }: Props) {
                     habitTitle={habit.title}
                     userId={user.id}
                     isPro={user.plan === "PRO"}
+                    aiSummaryCount={user.aiSummaryCount}
                 />
             </div>
         </div>
