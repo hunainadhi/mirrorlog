@@ -201,3 +201,55 @@ export async function sendOwnerReportEmail({
     `,
   });
 }
+export async function sendPodReminderEmail({
+  to,
+  name,
+  scheduledFor,
+  category,
+  podId,
+}: {
+  to: string;
+  name: string;
+  scheduledFor: Date;
+  category: string;
+  podId: string;
+}) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+  const time = scheduledFor.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+
+  await resend.emails.send({
+    from: FROM,
+    to,
+    subject: `Your MirrorPod starts in 15 minutes`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 24px; background: #0f0f0f; color: #f0ede8;">
+        <h1 style="font-size: 24px; margin-bottom: 8px;">MirrorLog</h1>
+        <p style="color: #6b6860; margin-bottom: 32px; font-size: 14px;">MirrorPod reminder</p>
+
+        <p style="font-size: 15px; margin-bottom: 16px;">Hey ${name},</p>
+        <p style="font-size: 15px; margin-bottom: 24px; color: #6b6860;">
+          Your focus pod starts in <strong style="color: #c9f97f;">15 minutes</strong>.
+        </p>
+
+        <div style="background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+          <p style="color: #6b6860; font-size: 12px; margin-bottom: 6px; text-transform: uppercase;">Time</p>
+          <p style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">${time}</p>
+          <p style="color: #6b6860; font-size: 12px; margin-bottom: 6px; text-transform: uppercase;">Category</p>
+          <p style="font-size: 16px; font-weight: 600;">${category}</p>
+        </div>
+
+        <p style="color: #6b6860; font-size: 14px; margin-bottom: 24px;">
+          Camera on, mic off. Be ready to focus.
+        </p>
+
+        <a href="${appUrl}/dashboard/pod" style="display: inline-block; background: #c9f97f; color: #0f0f0f; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 15px;">
+          Go to MirrorPod
+        </a>
+      </div>
+    `,
+  });
+}

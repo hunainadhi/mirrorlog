@@ -47,6 +47,42 @@ export default async function DashboardPage() {
             >
               MirrorLog
             </h1>
+            {/* Tab Toggle */}
+            <div style={{
+              display: "flex",
+              background: "var(--surface)",
+              borderRadius: "12px",
+              padding: "4px",
+              marginBottom: "32px",
+              border: "1px solid var(--border)",
+            }}>
+              <a href="/dashboard" style={{
+                flex: 1,
+                textAlign: "center",
+                padding: "10px",
+                borderRadius: "8px",
+                background: "var(--accent)",
+                color: "#0f0f0f",
+                textDecoration: "none",
+                fontSize: "0.85rem",
+                fontWeight: 700,
+              }}>
+                MirrorPulse
+              </a>
+              <a href="/dashboard/pod" style={{
+                flex: 1,
+                textAlign: "center",
+                padding: "10px",
+                borderRadius: "8px",
+                background: "transparent",
+                color: "var(--muted)",
+                textDecoration: "none",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+              }}>
+                MirrorPod
+              </a>
+            </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
               <p style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, margin: 0 }}>
                 {user.name}

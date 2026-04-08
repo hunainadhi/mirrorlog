@@ -1,5 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
+import { generateUniquePseudonym } from "./pseudonyms";
 
 export async function getCurrentUser() {
   const { userId } = await auth();
@@ -14,14 +15,30 @@ export async function getCurrentUser() {
   const clerkUser = await currentUser();
   if (!clerkUser) return null;
 
-  const newUser = await db.user.create({
-    data: {
-      clerkId: userId,
-      email: clerkUser.emailAddresses[0].emailAddress,
-      name: `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim(),
-      onboarded: false,
-    },
+  const email = clerkUser.emailAddresses[0].emailAddress;
+  const name = `${clerkUser.firstName ?? ""} ${clerkUser.lastName ?? ""}`.trim();
+
+  // Check if user exists by email
+  const userByEmail = await db.user.findUnique({
+    where: { email },
   });
 
-  return newUser;
+  if (userByEmail) {
+    return await db.user.update({
+      where: { email },
+      data: { clerkId: userId },
+    });
+  }
+
+  const pseudonym = await generateUniquePseudonym(db);
+
+  return await db.user.create({
+    data: {
+      clerkId: userId,
+      email,
+      name,
+      onboarded: false,
+      pseudonym,
+    },
+  });
 }

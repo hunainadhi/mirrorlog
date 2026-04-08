@@ -14,20 +14,27 @@ enum Plan {
 }
 
 model User {
-  id               String   @id @default(cuid())
-  clerkId          String   @unique
-  email            String   @unique
+  id               String    @id @default(cuid())
+  clerkId          String    @unique
+  email            String    @unique
   name             String?
-  plan             Plan     @default(FREE)
-  onboarded        Boolean  @default(false)
-  aiSummaryCount Int @default(0)
-  stripeCustomerId String?  @unique
+  plan             Plan      @default(FREE)
+  onboarded        Boolean   @default(false)
+  stripeCustomerId String?   @unique
   stripePriceId    String?
   stripeSubId      String?
-  createdAt        DateTime @default(now())
+  aiSummaryCount   Int       @default(0)
+  pseudonym        String?   @unique
+  podDailyCount    Int       @default(0)
+  podMonthlyCount  Int       @default(0)
+  podStreak        Int       @default(0)
+  lastPodDate      DateTime?
+  createdAt        DateTime  @default(now())
 
-  habits  Habit[]
-  reports WeeklyReport[]
+  habits     Habit[]
+  reports    WeeklyReport[]
+  podSignups PodSignup[]
+  podMembers PodMember[]
 }
 
 model Habit {
@@ -78,5 +85,67 @@ model WeeklyReport {
   aiSummary   String?
   createdAt   DateTime @default(now())
 
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum PodCategory {
+  STUDY
+  CODING
+  WRITING
+  READING
+  DESIGN
+  JOB_HUNT
+  ADMIN
+  LEARNING
+  BUSINESS
+  DEEP_WORK
+}
+
+enum PodStatus {
+  SCHEDULED
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+
+model Pod {
+  id            String      @id @default(cuid())
+  scheduledFor  DateTime
+  category      PodCategory?
+  status        PodStatus   @default(SCHEDULED)
+  dailyRoomUrl  String?
+  dailyRoomName String?
+  maxMembers    Int         @default(5)
+  duration      Int         @default(25)
+  startedAt     DateTime?
+  endsAt        DateTime?
+  createdAt     DateTime    @default(now())
+
+  signups PodSignup[]
+  members PodMember[]
+}
+
+model PodSignup {
+  id         String      @id @default(cuid())
+  podId      String
+  userId     String
+  category   PodCategory
+  cancelledAt DateTime?
+  createdAt  DateTime    @default(now())
+
+  pod  Pod  @relation(fields: [podId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model PodMember {
+  id          String   @id @default(cuid())
+  podId       String
+  userId      String
+  task        String?
+  joinedAt    DateTime @default(now())
+  completedAt DateTime?
+  strikes     Int      @default(0)
+
+  pod  Pod  @relation(fields: [podId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }
