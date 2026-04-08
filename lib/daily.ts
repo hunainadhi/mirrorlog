@@ -43,11 +43,14 @@ export async function createDailyToken(roomName: string, userName: string) {
                 room_name: roomName,
                 user_name: userName,
                 exp,
-                enable_screenshare: false,
+
+                // Start muted just in case
                 start_audio_off: true,
-                audio_only: false,
-                // These prevent the user from ever turning mic on
-                enable_audio: false,
+
+                // Critical: allow video only
+                permissions: {
+                    canSend: ["video"],
+                },
             },
         }),
     });
