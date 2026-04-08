@@ -68,12 +68,22 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
     });
   }
 
-  function isJoinable(slot: Slot) {
+  // Show button 5 min before but only enable at exact time
+  function isVisible(slot: Slot) {
     if (slot.status === "ACTIVE") return true;
     const podTime = new Date(slot.scheduledFor);
     const now = new Date();
     const diff = podTime.getTime() - now.getTime();
     return diff <= 5 * 60 * 1000 && diff >= -25 * 60 * 1000;
+  }
+
+  // Only allow joining at or after scheduled time
+  function isEnabled(slot: Slot) {
+    if (slot.status === "ACTIVE") return true;
+    const podTime = new Date(slot.scheduledFor);
+    const now = new Date();
+    const diff = podTime.getTime() - now.getTime();
+    return diff <= 0 && diff >= -25 * 60 * 1000;
   }
 
   function timeUntil(dateStr: string) {
@@ -154,8 +164,8 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
             </div>
           </div>
 
-          {/* Join button if within 5 min or active */}
-          {slot.userSignedUp && isJoinable(slot) && (
+          {/* Show join button 5 min before, enable at exact time */}
+          {slot.userSignedUp && isVisible(slot) && (
             <div style={{ marginBottom: "12px" }}>
               {joiningPodId === slot.id ? (
                 <div style={{ display: "flex", gap: "8px" }}>
@@ -176,16 +186,16 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
                   />
                   <button
                     onClick={() => { onJoin(slot.id, task, slot.scheduledFor); setJoiningPodId(null); }}
-                    disabled={!task}
+                    disabled={!task || !isEnabled(slot)}
                     style={{
-                      background: task ? "var(--accent)" : "var(--border)",
-                      color: task ? "#0f0f0f" : "var(--muted)",
+                      background: task && isEnabled(slot) ? "var(--accent)" : "var(--border)",
+                      color: task && isEnabled(slot) ? "#0f0f0f" : "var(--muted)",
                       border: "none",
                       borderRadius: "8px",
                       padding: "8px 16px",
                       fontSize: "0.85rem",
                       fontWeight: 600,
-                      cursor: task ? "pointer" : "not-allowed",
+                      cursor: task && isEnabled(slot) ? "pointer" : "not-allowed",
                       fontFamily: "'DM Sans', sans-serif",
                     }}
                   >
@@ -194,22 +204,23 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
                 </div>
               ) : (
                 <button
-                  onClick={() => setJoiningPodId(slot.id)}
+                  onClick={() => isEnabled(slot) && setJoiningPodId(slot.id)}
+                  disabled={!isEnabled(slot)}
                   style={{
                     width: "100%",
-                    background: "var(--accent)",
-                    color: "#0f0f0f",
+                    background: isEnabled(slot) ? "var(--accent)" : "var(--border)",
+                    color: isEnabled(slot) ? "#0f0f0f" : "var(--muted)",
                     border: "none",
                     borderRadius: "8px",
                     padding: "10px",
                     fontSize: "0.85rem",
                     fontWeight: 700,
-                    cursor: "pointer",
+                    cursor: isEnabled(slot) ? "pointer" : "not-allowed",
                     fontFamily: "'DM Sans', sans-serif",
                     marginBottom: "8px",
                   }}
                 >
-                  Join Pod
+                  {isEnabled(slot) ? "Join Pod" : `Opens at ${new Date(slot.scheduledFor).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`}
                 </button>
               )}
             </div>
@@ -297,7 +308,7 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
               </button>
             )
           ) : (
-            !isJoinable(slot) && (
+            !isVisible(slot) && (
               <button
                 onClick={() => handleCancel(slot.id)}
                 style={{
