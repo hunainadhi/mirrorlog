@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 import PodDashboard from "@/components/pod/PodDashboard";
 
 export const dynamic = "force-dynamic";
@@ -20,15 +21,59 @@ export default async function PodPage() {
           alignItems: "center",
           marginBottom: "24px",
         }}>
-          <h1 style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "2.2rem",
-            color: "var(--text)",
-            lineHeight: 1.1,
-            margin: 0,
-          }}>
-            MirrorLog
-          </h1>
+          <div>
+            <h1 style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "2.2rem",
+              color: "var(--text)",
+              lineHeight: 1.1,
+              margin: 0,
+            }}>
+              MirrorLog
+            </h1>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
+              <p style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, margin: 0 }}>
+                {user.name}
+              </p>
+              <span style={{ color: "var(--border)" }}>·</span>
+              <span style={{
+                background: user.plan === "PRO" ? "var(--accent)" : "var(--surface)",
+                color: user.plan === "PRO" ? "#0f0f0f" : "var(--muted)",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                padding: "3px 10px",
+                borderRadius: "100px",
+                border: "1px solid var(--border)",
+                letterSpacing: "0.05em",
+              }}>
+                {user.plan}
+              </span>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <a href="/dashboard/settings" style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "8px",
+              padding: "8px 14px",
+              color: "var(--muted)",
+              fontSize: "0.8rem",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+            }}>
+              ⚙️ Settings
+            </a>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: { width: 48, height: 48 },
+                },
+              }}
+            />
+          </div>
         </div>
 
         {/* Tab Toggle */}

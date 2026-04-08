@@ -20,7 +20,7 @@ interface Props {
   slots: Slot[];
   plan: string;
   onSignup: () => void;
-  onJoin: (podId: string, task: string) => void;
+  onJoin: (podId: string, task: string, scheduledFor: string) => void;
 }
 
 export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
@@ -175,7 +175,7 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
                     }}
                   />
                   <button
-                    onClick={() => { onJoin(slot.id, task); setJoiningPodId(null); }}
+                    onClick={() => { onJoin(slot.id, task, slot.scheduledFor); setJoiningPodId(null); }}
                     disabled={!task}
                     style={{
                       background: task ? "var(--accent)" : "var(--border)",

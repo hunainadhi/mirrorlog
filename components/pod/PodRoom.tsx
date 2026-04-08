@@ -3,16 +3,25 @@
 import { useEffect, useState } from "react";
 
 interface Props {
-    token: string;
-    roomUrl: string;
-    podId: string;
-    duration: number;
-    pseudonym: string;
-    onLeave: () => void;
+  token: string;
+  roomUrl: string;
+  podId: string;
+  duration: number;
+  scheduledFor: string; 
+  pseudonym: string;
+  onLeave: () => void;
 }
 
-export default function PodRoom({ token, roomUrl, podId, duration, pseudonym, onLeave }: Props) {
-    const [timeLeft, setTimeLeft] = useState(duration * 60);
+function getTimeLeft(scheduledFor: string, duration: number): number {
+  const start = new Date(scheduledFor).getTime();
+  const end = start + duration * 60 * 1000;
+  const now = Date.now();
+  const remaining = Math.floor((end - now) / 1000);
+  return Math.max(0, remaining);
+}
+
+export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor, pseudonym, onLeave }: Props) {
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(scheduledFor, duration));
     const [cameraWarning, setCameraWarning] = useState(false);
     const [cameraOffSeconds, setCameraOffSeconds] = useState(0);
 

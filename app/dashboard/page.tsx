@@ -1,4 +1,3 @@
-
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { UserButton } from "@clerk/nextjs";
@@ -10,79 +9,35 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
+  if (!user) return null;
   if (!user.onboarded) redirect("/dashboard/welcome");
+
   const habits = await db.habit.findMany({
     where: { userId: user.id, active: true },
     orderBy: { createdAt: "desc" },
   });
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--bg)",
-        padding: "0 16px",
-      }}
-    >
+    <div style={{ minHeight: "100vh", background: "var(--bg)", padding: "0 16px" }}>
       <div style={{ maxWidth: "640px", margin: "0 auto", paddingTop: "48px" }}>
 
         {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginBottom: "48px",
-          }}
-        >
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "24px",
+        }}>
           <div>
-            <h1
-              style={{
-                fontFamily: "'DM Serif Display', serif",
-                fontSize: "2.2rem",
-                color: "var(--text)",
-                lineHeight: 1.1,
-                margin: 0,
-              }}
-            >
+            <h1 style={{
+              fontFamily: "'DM Serif Display', serif",
+              fontSize: "2.2rem",
+              color: "var(--text)",
+              lineHeight: 1.1,
+              margin: 0,
+            }}>
               MirrorLog
             </h1>
-            {/* Tab Toggle */}
-            <div style={{
-              display: "flex",
-              background: "var(--surface)",
-              borderRadius: "12px",
-              padding: "4px",
-              marginBottom: "32px",
-              border: "1px solid var(--border)",
-            }}>
-              <a href="/dashboard" style={{
-                flex: 1,
-                textAlign: "center",
-                padding: "10px",
-                borderRadius: "8px",
-                background: "var(--accent)",
-                color: "#0f0f0f",
-                textDecoration: "none",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-              }}>
-                MirrorPulse
-              </a>
-              <a href="/dashboard/pod" style={{
-                flex: 1,
-                textAlign: "center",
-                padding: "10px",
-                borderRadius: "8px",
-                background: "transparent",
-                color: "var(--muted)",
-                textDecoration: "none",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-              }}>
-                MirrorPod
-              </a>
-            </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
               <p style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, margin: 0 }}>
                 {user.name}
@@ -102,6 +57,7 @@ export default async function DashboardPage() {
               </span>
             </div>
           </div>
+
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <a href="/dashboard/settings" style={{
               background: "var(--surface)",
@@ -125,6 +81,43 @@ export default async function DashboardPage() {
               }}
             />
           </div>
+        </div>
+
+        {/* Tab Toggle */}
+        <div style={{
+          display: "flex",
+          background: "var(--surface)",
+          borderRadius: "12px",
+          padding: "4px",
+          marginBottom: "32px",
+          border: "1px solid var(--border)",
+        }}>
+          <a href="/dashboard" style={{
+            flex: 1,
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "8px",
+            background: "var(--accent)",
+            color: "#0f0f0f",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: 700,
+          }}>
+            MirrorPulse
+          </a>
+          <a href="/dashboard/pod" style={{
+            flex: 1,
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "8px",
+            background: "transparent",
+            color: "var(--muted)",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+          }}>
+            MirrorPod
+          </a>
         </div>
 
         <HabitsDashboard initialHabits={habits} />
