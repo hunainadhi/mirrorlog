@@ -14,7 +14,7 @@ export async function GET(req: Request) {
   // Mark expired pods as ENDED
   const expiredPods = await db.pod.findMany({
     where: {
-      status: "ACTIVE",
+      status: { in: ["ACTIVE", "SCHEDULED"] },
       scheduledFor: {
         lte: new Date(now.getTime() - 25 * 60 * 1000),
       },
