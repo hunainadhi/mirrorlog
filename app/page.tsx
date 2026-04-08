@@ -96,7 +96,7 @@ export default async function LandingPage() {
             letterSpacing: "0.05em",
             textTransform: "uppercase",
           }}>
-            Habit accountability, reimagined
+            Honest habit accountability
           </div>
 
           <h1 style={{
@@ -106,8 +106,8 @@ export default async function LandingPage() {
             margin: "0 0 24px",
             color: "#f0ede8",
           }}>
-            Accountability from the people<br />
-          <span style={{ color: "#c9f97f" }}>who actually know you</span>
+            Accountability from people<br />
+            <span style={{ color: "#c9f97f" }}>who actually see you.</span>
           </h1>
 
           <p style={{
@@ -117,7 +117,7 @@ export default async function LandingPage() {
             maxWidth: "520px",
             margin: "0 auto 48px",
           }}>
-            Add a habit. Invite friends who see your daily life. Every week they hold up a mirror — anonymously rating how consistent you actually are.
+            Track habits with your inner circle. Focus silently with strangers. Two tools, one goal — becoming the person you say you are.
           </p>
 
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
@@ -148,12 +148,45 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Gap score mockup */}
+        {/* Product overview pill */}
         <section style={{
-          maxWidth: "560px",
-          margin: "0 auto 120px",
+          maxWidth: "640px",
+          margin: "0 auto 80px",
           padding: "0 24px",
         }}>
+          <div style={{
+            background: "#111",
+            border: "1px solid #1e1e1e",
+            borderRadius: "16px",
+            padding: "20px 24px",
+            textAlign: "center",
+          }}>
+            <p style={{ color: "#6b6860", fontSize: "0.85rem", margin: 0 }}>
+              MirrorLog includes{" "}
+              <strong style={{ color: "#f0ede8" }}>MirrorPulse</strong>
+              {" "}for habit accountability and{" "}
+              <strong style={{ color: "#f0ede8" }}>MirrorPod</strong>
+              {" "}for silent focus sessions with others.
+            </p>
+          </div>
+        </section>
+
+        {/* MirrorPulse mockup */}
+        <section style={{
+          maxWidth: "560px",
+          margin: "0 auto 80px",
+          padding: "0 24px",
+        }}>
+          <p style={{
+            textAlign: "center",
+            color: "#6b6860",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginBottom: "20px",
+          }}>
+            MirrorPulse
+          </p>
           <div style={{
             background: "#111",
             border: "1px solid #1e1e1e",
@@ -200,8 +233,127 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* How it works */}
+        {/* MirrorPod mockup */}
+        <section style={{
+          maxWidth: "560px",
+          margin: "0 auto 120px",
+          padding: "0 24px",
+        }}>
+          <p style={{
+            textAlign: "center",
+            color: "#6b6860",
+            fontSize: "0.75rem",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginBottom: "20px",
+          }}>
+            MirrorPod
+          </p>
+          <div style={{
+            background: "#111",
+            border: "1px solid #1e1e1e",
+            borderRadius: "20px",
+            padding: "32px",
+            boxShadow: "0 40px 80px rgba(0,0,0,0.5)",
+          }}>
+            <p style={{ color: "#6b6860", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "20px" }}>
+              Focus session · 25 min
+            </p>
+            <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
+              {[
+                { name: "SwiftFalcon12", task: "Writing essay" },
+                { name: "CalmOak44", task: "Coding feature" },
+                { name: "BoldRiver91", task: "Reading chapter" },
+              ].map((member) => (
+                <div key={member.name} style={{
+                  flex: 1,
+                  background: "#0a0a0a",
+                  borderRadius: "12px",
+                  padding: "16px",
+                  textAlign: "center",
+                }}>
+                  <div style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#1a1a1a",
+                    margin: "0 auto 8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.2rem",
+                  }}>
+                    👤
+                  </div>
+                  <p style={{ color: "#c9f97f", fontSize: "0.7rem", fontWeight: 600, marginBottom: "4px" }}>{member.name}</p>
+                  <p style={{ color: "#6b6860", fontSize: "0.65rem" }}>{member.task}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              background: "#0a0a0a",
+              borderRadius: "10px",
+              padding: "14px 16px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+              <p style={{ color: "#6b6860", fontSize: "0.8rem", margin: 0 }}>
+                🔇 Mic off · 📹 Camera on · 💬 No chat
+              </p>
+              <p style={{ color: "#c9f97f", fontSize: "0.9rem", fontWeight: 700, margin: 0, fontFamily: "'DM Serif Display', serif" }}>
+                18:42
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How MirrorPulse works */}
         <section id="how-it-works" style={{
+          maxWidth: "860px",
+          margin: "0 auto 80px",
+          padding: "0 24px",
+        }}>
+          <p style={{
+            textAlign: "center",
+            fontFamily: "'DM Serif Display', serif",
+            fontSize: "2rem",
+            marginBottom: "12px",
+          }}>
+            How MirrorPulse works
+          </p>
+          <p style={{
+            textAlign: "center",
+            color: "#6b6860",
+            fontSize: "0.9rem",
+            marginBottom: "48px",
+          }}>
+            Habit accountability from people who actually see you
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+            {[
+              { step: "01", emoji: "🎯", title: "Pick a habit", body: "Choose something your friends can actually observe — hitting the gym, waking up early, eating better, staying off your phone." },
+              { step: "02", emoji: "👥", title: "Invite people who see you", body: "Send a link to 3–5 friends, family, or colleagues. No app download needed. Takes them 60 seconds a week." },
+              { step: "03", emoji: "🔒", title: "They rate you honestly", body: "Every Sunday your circle rates how consistent you've actually been from 1–5. Completely anonymous so they tell the truth." },
+              { step: "04", emoji: "🪞", title: "See your MirrorReport", body: "Every Monday your mirror reflects the truth — your self-score vs what your circle actually saw. Close the gap." },
+            ].map((item) => (
+              <div key={item.step} style={{
+                background: "#111",
+                border: "1px solid #1e1e1e",
+                borderRadius: "16px",
+                padding: "28px",
+              }}>
+                <p style={{ color: "#2a2a2a", fontSize: "0.75rem", fontWeight: 700, marginBottom: "12px" }}>{item.step}</p>
+                <p style={{ fontSize: "1.8rem", marginBottom: "12px" }}>{item.emoji}</p>
+                <p style={{ color: "#f0ede8", fontWeight: 600, marginBottom: "8px" }}>{item.title}</p>
+                <p style={{ color: "#6b6860", fontSize: "0.85rem", lineHeight: 1.6 }}>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How MirrorPod works */}
+        <section style={{
           maxWidth: "860px",
           margin: "0 auto 120px",
           padding: "0 24px",
@@ -210,16 +362,24 @@ export default async function LandingPage() {
             textAlign: "center",
             fontFamily: "'DM Serif Display', serif",
             fontSize: "2rem",
-            marginBottom: "60px",
+            marginBottom: "12px",
           }}>
-            How it works
+            How MirrorPod works
+          </p>
+          <p style={{
+            textAlign: "center",
+            color: "#6b6860",
+            fontSize: "0.9rem",
+            marginBottom: "48px",
+          }}>
+            Silent focus sessions with real people every 30 minutes
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
             {[
-              { step: "01", emoji: "🎯", title: "Pick a habit", body: "Choose something your friends can actually observe — hitting the gym, waking up early, eating better, staying off your phone." },
-              { step: "02", emoji: "👥", title: "Invite people who see you", body: "Send a link to 3–5 friends, family, or colleagues. No app download needed. Takes them 60 seconds a week." },
-              { step: "03", emoji: "🔒", title: "They rate you honestly", body: "Every Sunday your circle rates how consistent you've actually been from 1–5. Completely anonymous so they tell the truth." },
-              { step: "04", emoji: "🪞", title: "See your MirrorReport", body: "Every Monday your mirror reflects the truth — your self-score vs what your circle actually saw. Close the gap. Build the habit for real." },
+              { step: "01", emoji: "📅", title: "Sign up for a slot", body: "Pods run every 30 minutes. Pick an upcoming slot and choose your category — Study, Coding, Writing, and more." },
+              { step: "02", emoji: "👥", title: "Get matched", body: "Up to 5 people with similar goals are grouped together. You see each other's pseudonym and task." },
+              { step: "03", emoji: "📹", title: "Work silently on camera", body: "Camera on, mic permanently off. No chat, no distractions. Just the accountability of being seen by real people." },
+              { step: "04", emoji: "✅", title: "Session ends", body: "After 25 minutes the session closes. Your streak and focus history are tracked over time in MirrorLog." },
             ].map((item) => (
               <div key={item.step} style={{
                 background: "#111",
@@ -255,7 +415,14 @@ export default async function LandingPage() {
               {
                 name: "Free",
                 price: "$0",
-                features: ["1 habit", "3 raters", "4 weeks history", "Weekly gap score"],
+                features: [
+                  "2 habits",
+                  "3 raters per habit",
+                  "4 weeks history",
+                  "1 free AI summary",
+                  "2 MirrorPod sessions/day",
+                  "10 sessions/month",
+                ],
                 cta: "Get started",
                 href: "/sign-up",
                 highlight: false,
@@ -263,7 +430,14 @@ export default async function LandingPage() {
               {
                 name: "Pro",
                 price: "$3/mo",
-                features: ["10 habits", "8 raters", "Full history", "AI weekly summary"],
+                features: [
+                  "10 habits",
+                  "8 raters per habit",
+                  "Full history",
+                  "Unlimited AI summaries",
+                  "6 MirrorPod sessions/day",
+                  "30 sessions/month",
+                ],
                 cta: "Upgrade to Pro",
                 href: "/sign-up",
                 highlight: true,
@@ -328,10 +502,10 @@ export default async function LandingPage() {
               marginBottom: "16px",
               color: "#f0ede8",
             }}>
-              Ready to see your mirror?
+              Real accountability starts here
             </p>
             <p style={{ color: "#6b6860", fontSize: "0.95rem", marginBottom: "32px" }}>
-              Free forever. No credit card required.
+              Free forever. No credit card. Just honest friends.
             </p>
             <Link href="/sign-up" style={{
               background: "#c9f97f",
