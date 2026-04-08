@@ -14,6 +14,7 @@ interface Props {
 export interface Slot {
   id: string;
   scheduledFor: string;
+  status: string;
   signupCount: number;
   userSignedUp: boolean;
   userCategory: string | null;

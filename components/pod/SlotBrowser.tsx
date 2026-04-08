@@ -68,8 +68,9 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
     });
   }
 
-  function isJoinable(dateStr: string) {
-    const podTime = new Date(dateStr);
+  function isJoinable(slot: Slot) {
+    if (slot.status === "ACTIVE") return true;
+    const podTime = new Date(slot.scheduledFor);
     const now = new Date();
     const diff = podTime.getTime() - now.getTime();
     return diff <= 5 * 60 * 1000 && diff >= -25 * 60 * 1000;
@@ -138,11 +139,23 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
                   {CATEGORIES.find(c => c.value === slot.userCategory)?.emoji} {CATEGORIES.find(c => c.value === slot.userCategory)?.label}
                 </span>
               )}
+              {slot.status === "ACTIVE" && (
+                <span style={{
+                  background: "#ff6b6b22",
+                  color: "#ff6b6b",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  padding: "3px 10px",
+                  borderRadius: "100px",
+                }}>
+                  LIVE
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Join button if within 5 min */}
-          {slot.userSignedUp && isJoinable(slot.scheduledFor) && (
+          {/* Join button if within 5 min or active */}
+          {slot.userSignedUp && isJoinable(slot) && (
             <div style={{ marginBottom: "12px" }}>
               {joiningPodId === slot.id ? (
                 <div style={{ display: "flex", gap: "8px" }}>
@@ -284,7 +297,7 @@ export default function SlotBrowser({ slots, plan, onSignup, onJoin }: Props) {
               </button>
             )
           ) : (
-            !isJoinable(slot.scheduledFor) && (
+            !isJoinable(slot) && (
               <button
                 onClick={() => handleCancel(slot.id)}
                 style={{

@@ -1,24 +1,2 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron/weekly",
-      "schedule": "0 20 * * 0"
-    },
-    {
-      "path": "/api/cron/weekly",
-      "schedule": "0 8 * * 1"
-    },
-    {
-      "path": "/api/cron/pods",
-      "schedule": "*/30 * * * *"
-    },
-    {
-      "path": "/api/cron/assign",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/remind",
-      "schedule": "*/5 * * * *"
-    }
-  ]
 }
