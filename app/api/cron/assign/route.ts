@@ -11,12 +11,29 @@ export async function GET(req: Request) {
   const now = new Date();
   const fiveMinFromNow = new Date(now.getTime() + 5 * 60 * 1000);
 
+  // Mark expired pods as ENDED
+  const expiredPods = await db.pod.findMany({
+    where: {
+      status: "ACTIVE",
+      scheduledFor: {
+        lte: new Date(now.getTime() - 25 * 60 * 1000),
+      },
+    },
+  });
+
+  for (const pod of expiredPods) {
+    await db.pod.update({
+      where: { id: pod.id },
+      data: { status: "ENDED", endsAt: new Date() },
+    });
+  }
+
   // Find slots starting in the next 5 minutes that haven't been assigned yet
   const upcomingSlots = await db.pod.findMany({
     where: {
       scheduledFor: { lte: fiveMinFromNow, gte: now },
       status: "SCHEDULED",
-      dailyRoomName: null, // not yet assigned
+      dailyRoomName: null,
     },
     include: {
       signups: {
@@ -31,7 +48,6 @@ export async function GET(req: Request) {
   for (const slot of upcomingSlots) {
     const signups = slot.signups;
     if (signups.length === 0) {
-      // No signups — cancel the slot
       await db.pod.update({
         where: { id: slot.id },
         data: { status: "CANCELLED" },
@@ -51,7 +67,6 @@ export async function GET(req: Request) {
     const pods: typeof signups[] = [];
     let currentPod: typeof signups = [];
 
-    // Fill pods by category first
     for (const cat of Object.keys(categoryGroups)) {
       for (const signup of categoryGroups[cat]) {
         if (currentPod.length >= 5) {
@@ -68,7 +83,6 @@ export async function GET(req: Request) {
       const roomName = `mirrorpod-${slot.id}-${Date.now()}`;
       const room = await createDailyRoom(roomName, 60);
 
-      // Create new pod for this group (or reuse slot if first group)
       const isFirstGroup = pods.indexOf(group) === 0;
 
       let podRecord;
@@ -94,7 +108,6 @@ export async function GET(req: Request) {
         });
       }
 
-      // Update signups to point to the correct pod
       for (const signup of group) {
         await db.podSignup.update({
           where: { id: signup.id },

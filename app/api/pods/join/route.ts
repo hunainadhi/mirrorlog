@@ -48,17 +48,18 @@ export async function POST(req: Request) {
   }
 
   // Add as member if not already
-  const existingMember = await db.podMember.findFirst({
-    where: { podId, userId: user.id },
+const existingMember = await db.podMember.findFirst({
+  where: { podId, userId: user.id },
+});
+
+const isNewJoin = !existingMember;
+
+if (isNewJoin) {
+  await db.podMember.create({
+    data: { podId, userId: user.id, task },
   });
 
-  if (!existingMember) {
-    await db.podMember.create({
-      data: { podId, userId: user.id, task },
-    });
-  }
-
-  // Update user pod counts
+  // Only increment counts on first join
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const lastPodDate = user.lastPodDate ? new Date(user.lastPodDate) : null;
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
       lastPodDate: new Date(),
     },
   });
-
+}
   // Generate Daily token
   const token = await createDailyToken(roomName!, user.pseudonym || user.name || user.email);
 
