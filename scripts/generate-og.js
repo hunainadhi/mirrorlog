@@ -5,7 +5,7 @@ const path = require('path');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   
-  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 2 }); // 2x for retina quality
+  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
   
   const filePath = path.resolve(__dirname, '../public/og-image.html');
   await page.goto(`file://${filePath}`);

@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MirrorLog",
-  description: "Accountability from people who actually see you.",
+  title: "MirrorLog — Accountability from people who actually see you",
+  description: "Track habits with your inner circle via MirrorPulse. Focus silently with others via MirrorPod. Two tools, one goal — become who you say you are.",
   openGraph: {
-    title: "MirrorLog",
-    description: "Accountability from people who actually see you.",
+    title: "MirrorLog — Accountability from people who actually see you",
+    description: "Track habits with your inner circle via MirrorPulse. Focus silently with others via MirrorPod. Two tools, one goal — become who you say you are.",
     url: "https://mirrorlog.org",
     siteName: "MirrorLog",
     images: [
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
         url: "https://mirrorlog.org/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MirrorLog",
+        alt: "MirrorLog — Accountability from people who actually see you",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MirrorLog",
-    description: "Accountability from people who actually see you.",
+    title: "MirrorLog — Accountability from people who actually see you",
+    description: "Track habits with your inner circle via MirrorPulse. Focus silently with others via MirrorPod. Two tools, one goal — become who you say you are.",
     images: ["https://mirrorlog.org/og-image.png"],
   },
 };
