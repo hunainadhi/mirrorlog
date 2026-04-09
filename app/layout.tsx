@@ -15,7 +15,28 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MirrorLog",
-  description: "See yourself through the eyes of your circle",
+  description: "Accountability from people who actually see you.",
+  openGraph: {
+    title: "MirrorLog",
+    description: "Accountability from people who actually see you.",
+    url: "https://mirrorlog.org",
+    siteName: "MirrorLog",
+    images: [
+      {
+        url: "https://mirrorlog.org/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MirrorLog",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MirrorLog",
+    description: "Accountability from people who actually see you.",
+    images: ["https://mirrorlog.org/og-image.png"],
+  },
 };
 
 export default function RootLayout({

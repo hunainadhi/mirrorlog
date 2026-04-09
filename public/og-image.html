@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #0a0a0a;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: #0a0a0a;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 64px 72px;
+    overflow: hidden;
+  }
+
+  /* Radial glow top right */
+  .glow-tr {
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(201,249,127,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Radial glow bottom left */
+  .glow-bl {
+    position: absolute;
+    bottom: -100px;
+    left: -60px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(201,249,127,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Grid pattern */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Grain overlay */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+  }
+
+  /* Top section */
+  .top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: #f0ede8;
+    letter-spacing: -0.5px;
+  }
+
+  .badge {
+    background: rgba(201,249,127,0.08);
+    border: 1px solid rgba(201,249,127,0.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: #c9f97f;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Middle section */
+  .middle {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .tagline {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    line-height: 1.05;
+    color: #f0ede8;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+
+  .tagline span {
+    color: #c9f97f;
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: #6b6860;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  /* Bottom section */
+  .bottom {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .products {
+    display: flex;
+    gap: 12px;
+  }
+
+  .product-pill {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .product-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c9f97f;
+    flex-shrink: 0;
+  }
+
+  .product-name {
+    font-size: 13px;
+    color: #f0ede8;
+    font-weight: 500;
+  }
+
+  .product-desc {
+    font-size: 12px;
+    color: #6b6860;
+    margin-left: 4px;
+  }
+
+  .url {
+    font-size: 15px;
+    color: #3a3a3a;
+    letter-spacing: 0.02em;
+  }
+
+  /* Decorative right side element */
+  .deco {
+    position: absolute;
+    right: 72px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0.15;
+  }
+
+  .deco-card {
+    width: 200px;
+    height: 56px;
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+  }
+
+  .deco-card:nth-child(2) {
+    width: 160px;
+    opacity: 0.7;
+  }
+
+  .deco-card:nth-child(3) {
+    width: 180px;
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="glow-tr"></div>
+  <div class="glow-bl"></div>
+  <div class="grid"></div>
+  <div class="grain"></div>
+
+  <div class="top">
+    <div class="logo">MirrorLog</div>
+    <div class="badge">mirrorlog.org</div>
+  </div>
+
+  <div class="middle">
+    <div class="tagline">
+      Accountability from<br>people who <span>actually see you.</span>
+    </div>
+    <div class="subtitle">
+      Track habits with your inner circle. Focus silently with strangers.
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="products">
+      <div class="product-pill">
+        <div class="product-dot"></div>
+        <span class="product-name">MirrorPulse</span>
+        <span class="product-desc">Habit accountability</span>
+      </div>
+      <div class="product-pill">
+        <div class="product-dot"></div>
+        <span class="product-name">MirrorPod</span>
+        <span class="product-desc">Silent focus sessions</span>
+      </div>
+    </div>
+    <div class="url">mirrorlog.org</div>
+  </div>
+</div>
+</body>
+</html>
