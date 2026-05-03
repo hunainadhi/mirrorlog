@@ -47,6 +47,7 @@ export default async function LandingPage() {
           padding: "24px 40px",
           borderBottom: "1px solid #1a1a1a",
         }}>
+          
           <p style={{
             fontFamily: "'DM Serif Display', serif",
             fontSize: "1.3rem",

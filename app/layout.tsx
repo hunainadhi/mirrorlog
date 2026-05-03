@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "MirrorLog — Accountability from people who actually see you",
   description: "Track habits with your inner circle via MirrorPulse. Focus silently with others via MirrorPod. Two tools, one goal — become who you say you are.",
+  icons: {
+    icon: "/logo.ico",
+    shortcut: "/logo.ico",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "MirrorLog — Accountability from people who actually see you",
     description: "Track habits with your inner circle via MirrorPulse. Focus silently with others via MirrorPod. Two tools, one goal — become who you say you are.",
