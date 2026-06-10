@@ -43,53 +43,55 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-lg)" }}>
       <div>
         <p style={{
-          fontFamily: "'DM Serif Display', serif",
-          fontSize: "1.8rem",
-          color: "var(--text)",
+          fontFamily: "var(--font-display)",
+          fontSize: "28px",
+          fontWeight: 600,
+          color: "var(--color-ink)",
           marginBottom: "4px",
+          letterSpacing: "0.196px",
         }}>
           Settings
         </p>
-        <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
+        <p style={{ color: "var(--color-body-muted)", fontSize: "17px", letterSpacing: "-0.374px" }}>
           Manage your account and plan
         </p>
       </div>
 
       {/* Account */}
       <div style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "24px",
+        background: "var(--color-canvas)",
+        border: "1px solid var(--color-hairline)",
+        borderRadius: "var(--radius-lg)",
+        padding: "var(--spacing-lg)",
       }}>
         <p style={{
-          color: "var(--muted)",
-          fontSize: "0.75rem",
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
+          color: "var(--color-body-muted)",
+          fontSize: "14px",
+          fontWeight: 600,
+          letterSpacing: "-0.224px",
           marginBottom: "16px",
         }}>
           Account
         </p>
-        <p style={{ color: "var(--text)", fontWeight: 500 }}>{user.name || "No name"}</p>
-        <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "4px" }}>{user.email}</p>
+        <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>{user.name || "No name"}</p>
+        <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>{user.email}</p>
       </div>
 
       {/* Plan */}
       <div style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "24px",
+        background: "var(--color-canvas)",
+        border: "1px solid var(--color-hairline)",
+        borderRadius: "var(--radius-lg)",
+        padding: "var(--spacing-lg)",
       }}>
         <p style={{
-          color: "var(--muted)",
-          fontSize: "0.75rem",
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
+          color: "var(--color-body-muted)",
+          fontSize: "14px",
+          fontWeight: 600,
+          letterSpacing: "-0.224px",
           marginBottom: "16px",
         }}>
           Plan
@@ -98,19 +100,20 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
         {user.plan === "PRO" ? (
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-              <p style={{ color: "var(--text)", fontWeight: 600, fontSize: "1.1rem" }}>Pro</p>
+              <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>Pro</p>
               <span style={{
-                background: "var(--accent)",
-                color: "#0f0f0f",
-                fontSize: "0.7rem",
-                fontWeight: 700,
+                background: "var(--color-primary)",
+                color: "var(--color-on-dark)",
+                fontSize: "12px",
+                fontWeight: 600,
                 padding: "3px 10px",
-                borderRadius: "100px",
+                borderRadius: "var(--radius-pill)",
+                letterSpacing: "-0.12px",
               }}>
                 ACTIVE
               </span>
             </div>
-            <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "16px" }}>
+            <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginBottom: "16px", letterSpacing: "-0.224px" }}>
               You have access to all Pro features including AI MirrorSummary, 10 habits, and 8 raters per habit.
             </p>
             {!cancelled ? (
@@ -119,35 +122,37 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                 disabled={loading === "cancel"}
                 style={{
                   background: "transparent",
-                  border: "1px solid var(--border)",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  color: "var(--muted)",
-                  fontSize: "0.85rem",
+                  border: "1px solid var(--color-hairline)",
+                  borderRadius: "var(--radius-pill)",
+                  padding: "11px 22px",
+                  color: "var(--color-body-muted)",
+                  fontSize: "17px",
                   cursor: "pointer",
                   width: "100%",
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "var(--font-text)",
+                  letterSpacing: "-0.374px",
                 }}
               >
                 {loading === "cancel" ? "Cancelling..." : "Cancel subscription"}
               </button>
             ) : (
-              <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginTop: "8px" }}>
-                Subscription cancelled. You'll keep Pro until the end of your billing period.
+              <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "var(--spacing-xs)", letterSpacing: "-0.224px" }}>
+                Subscription cancelled. You&apos;ll keep Pro until the end of your billing period.
               </p>
             )}
           </div>
         ) : (
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-              <p style={{ color: "var(--text)", fontWeight: 600, fontSize: "1.1rem" }}>Free</p>
+              <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>Free</p>
               <span style={{
-                background: "var(--border)",
-                color: "var(--muted)",
-                fontSize: "0.7rem",
-                fontWeight: 700,
+                background: "var(--color-canvas-parchment)",
+                color: "var(--color-body-muted)",
+                fontSize: "12px",
+                fontWeight: 600,
                 padding: "3px 10px",
-                borderRadius: "100px",
+                borderRadius: "var(--radius-pill)",
+                letterSpacing: "-0.12px",
               }}>
                 CURRENT
               </span>
@@ -156,8 +161,8 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
             {/* Billing toggle */}
             <div style={{
               display: "flex",
-              background: "#0f0f0f",
-              borderRadius: "10px",
+              background: "var(--color-canvas-parchment)",
+              borderRadius: "var(--radius-md)",
               padding: "4px",
               marginBottom: "20px",
               width: "fit-content",
@@ -167,20 +172,21 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                   key={cycle}
                   onClick={() => setBillingCycle(cycle)}
                   style={{
-                    background: billingCycle === cycle ? "var(--accent)" : "transparent",
-                    color: billingCycle === cycle ? "#0f0f0f" : "var(--muted)",
+                    background: billingCycle === cycle ? "var(--color-primary)" : "transparent",
+                    color: billingCycle === cycle ? "var(--color-on-dark)" : "var(--color-body-muted)",
                     border: "none",
-                    borderRadius: "8px",
+                    borderRadius: "var(--radius-sm)",
                     padding: "8px 16px",
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
+                    fontSize: "14px",
+                    fontWeight: billingCycle === cycle ? 600 : 400,
                     cursor: "pointer",
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-text)",
+                    letterSpacing: "-0.224px",
                   }}
                 >
                   {cycle === "monthly" ? "Monthly — $3" : "Yearly — $24"}
                   {cycle === "yearly" && (
-                    <span style={{ marginLeft: "6px", fontSize: "0.7rem" }}>Save 33%</span>
+                    <span style={{ marginLeft: "6px", fontSize: "12px", letterSpacing: "-0.12px" }}>Save 33%</span>
                   )}
                 </button>
               ))}
@@ -188,8 +194,8 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
 
             {/* Pro features */}
             <div style={{
-              background: "#0f0f0f",
-              borderRadius: "12px",
+              background: "var(--color-canvas-parchment)",
+              borderRadius: "var(--radius-md)",
               padding: "16px",
               marginBottom: "20px",
             }}>
@@ -200,11 +206,12 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
                 "AI MirrorSummary every week",
               ].map((feature) => (
                 <p key={feature} style={{
-                  color: "var(--muted)",
-                  fontSize: "0.85rem",
-                  marginBottom: "8px",
+                  color: "var(--color-ink)",
+                  fontSize: "14px",
+                  marginBottom: "var(--spacing-xs)",
+                  letterSpacing: "-0.224px",
                 }}>
-                  ✓ {feature}
+                  {feature}
                 </p>
               ))}
             </div>
@@ -214,15 +221,16 @@ export default function SettingsClient({ user, monthlyPriceId, yearlyPriceId }: 
               disabled={loading === "upgrade"}
               style={{
                 width: "100%",
-                background: "var(--accent)",
-                color: "#0f0f0f",
+                background: "var(--color-primary)",
+                color: "var(--color-on-dark)",
                 border: "none",
-                borderRadius: "10px",
+                borderRadius: "var(--radius-pill)",
                 padding: "14px",
-                fontSize: "0.95rem",
-                fontWeight: 700,
+                fontSize: "17px",
+                fontWeight: 400,
                 cursor: loading ? "not-allowed" : "pointer",
-                fontFamily: "'DM Sans', sans-serif",
+                fontFamily: "var(--font-text)",
+                letterSpacing: "-0.374px",
               }}
             >
               {loading === "upgrade" ? "Redirecting..." : `Upgrade to Pro — ${billingCycle === "monthly" ? "$3/mo" : "$24/yr"}`}

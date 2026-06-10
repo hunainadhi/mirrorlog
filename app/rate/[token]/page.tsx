@@ -15,7 +15,6 @@ export default async function RatePage({ params }: Props) {
   });
   if (!rater) return notFound();
 
-  // Check if already rated this week
   const weekStart = getWeekStart();
   const existingRating = await db.rating.findFirst({
     where: {
@@ -28,44 +27,46 @@ export default async function RatePage({ params }: Props) {
     <div
       style={{
         minHeight: "100vh",
-        background: "var(--bg)",
+        background: "var(--color-canvas)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "24px",
+        padding: "var(--spacing-lg)",
       }}
     >
       <div style={{ maxWidth: "480px", width: "100%" }}>
         <p
           style={{
-            fontFamily: "'DM Serif Display', serif",
-            fontSize: "1.8rem",
-            color: "var(--text)",
-            marginBottom: "8px",
+            fontFamily: "var(--font-display)",
+            fontSize: "28px",
+            fontWeight: 600,
+            color: "var(--color-ink)",
+            marginBottom: "var(--spacing-xs)",
+            letterSpacing: "0.196px",
           }}
         >
           MirrorLog
         </p>
-        <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "40px" }}>
+        <p style={{ color: "var(--color-body-muted)", fontSize: "17px", marginBottom: "40px", letterSpacing: "-0.374px" }}>
           Your friend is using MirrorLog to build better habits. Be their mirror — rate their consistency honestly.
         </p>
 
         <div
           style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: "16px",
-            padding: "28px",
+            background: "var(--color-canvas)",
+            border: "1px solid var(--color-hairline)",
+            borderRadius: "var(--radius-lg)",
+            padding: "var(--spacing-lg)",
           }}
         >
-          <p style={{ color: "var(--muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "8px" }}>
+          <p style={{ color: "var(--color-body-muted)", fontSize: "14px", letterSpacing: "-0.224px", marginBottom: "var(--spacing-xs)" }}>
             Habit
           </p>
-          <p style={{ color: "var(--text)", fontSize: "1.1rem", fontWeight: 600, marginBottom: "6px" }}>
+          <p style={{ color: "var(--color-ink)", fontSize: "17px", fontWeight: 600, marginBottom: "6px", letterSpacing: "-0.374px" }}>
             {rater.habit.title}
           </p>
           {rater.habit.description && (
-            <p style={{ color: "var(--muted)", fontSize: "0.85rem", marginBottom: "24px" }}>
+            <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginBottom: "var(--spacing-lg)", letterSpacing: "-0.224px" }}>
               {rater.habit.description}
             </p>
           )}
@@ -73,17 +74,17 @@ export default async function RatePage({ params }: Props) {
           {existingRating ? (
             <div
               style={{
-                background: "#0f0f0f",
-                borderRadius: "12px",
+                background: "var(--color-canvas-parchment)",
+                borderRadius: "var(--radius-md)",
                 padding: "20px",
                 textAlign: "center",
               }}
             >
-              <p style={{ fontSize: "1.5rem", marginBottom: "8px" }}>✓</p>
-              <p style={{ color: "var(--text)", fontSize: "0.9rem" }}>
+              <p style={{ fontSize: "21px", marginBottom: "var(--spacing-xs)", color: "var(--color-primary)" }}>&#10003;</p>
+              <p style={{ color: "var(--color-ink)", fontSize: "17px", letterSpacing: "-0.374px" }}>
                 You already rated this week
               </p>
-              <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginTop: "4px" }}>
+              <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>
                 Your score: {existingRating.score}/5
               </p>
             </div>
@@ -98,7 +99,7 @@ export default async function RatePage({ params }: Props) {
 
 function getWeekStart(): Date {
   const now = new Date();
-  const day = now.getDay(); // 0 = Sunday
+  const day = now.getDay();
   const diff = now.getDate() - day;
   const sunday = new Date(now.setDate(diff));
   sunday.setHours(0, 0, 0, 0);

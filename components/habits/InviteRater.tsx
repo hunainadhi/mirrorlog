@@ -79,21 +79,13 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                 onClick={handleOpen}
                 style={{
                     background: "transparent",
-                    border: "1px solid var(--border)",
-                    borderRadius: "8px",
+                    border: "1px solid var(--color-primary)",
+                    borderRadius: "var(--radius-pill)",
                     padding: "6px 14px",
-                    color: "var(--muted)",
-                    fontSize: "0.8rem",
+                    color: "var(--color-primary)",
+                    fontSize: "14px",
                     cursor: "pointer",
-                    transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                    (e.target as HTMLButtonElement).style.borderColor = "var(--accent)";
-                    (e.target as HTMLButtonElement).style.color = "var(--accent)";
-                }}
-                onMouseLeave={(e) => {
-                    (e.target as HTMLButtonElement).style.borderColor = "var(--border)";
-                    (e.target as HTMLButtonElement).style.color = "var(--muted)";
+                    letterSpacing: "-0.224px",
                 }}
             >
                 + Invite Rater
@@ -103,20 +95,21 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                 <div
                     style={{
                         marginTop: "16px",
-                        background: "#0f0f0f",
-                        border: "1px solid var(--border)",
-                        borderRadius: "12px",
+                        background: "var(--color-canvas-parchment)",
+                        border: "1px solid var(--color-hairline)",
+                        borderRadius: "var(--radius-md)",
                         padding: "20px",
                     }}
                 >
                     <p
                         style={{
-                            color: "var(--muted)",
-                            fontSize: "0.8rem",
-                            marginBottom: "12px",
+                            color: "var(--color-body-muted)",
+                            fontSize: "14px",
+                            marginBottom: "var(--spacing-sm)",
+                            letterSpacing: "-0.224px",
                         }}
                     >
-                        Invite someone to rate your consistency on "{habitTitle}"
+                        Invite someone to rate your consistency on &ldquo;{habitTitle}&rdquo;
                     </p>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -126,16 +119,19 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             style={{
-                                background: "var(--surface)",
-                                border: "1px solid var(--border)",
-                                borderRadius: "8px",
+                                background: "var(--color-canvas)",
+                                border: "1px solid var(--color-hairline)",
+                                borderRadius: "var(--radius-sm)",
                                 padding: "10px 14px",
-                                color: "var(--text)",
-                                fontSize: "0.85rem",
+                                color: "var(--color-ink)",
+                                fontSize: "17px",
                                 outline: "none",
                                 width: "100%",
                                 boxSizing: "border-box",
+                                letterSpacing: "-0.374px",
                             }}
+                            onFocus={(e) => (e.target.style.borderColor = "var(--color-primary-focus)")}
+                            onBlur={(e) => (e.target.style.borderColor = "var(--color-hairline)")}
                         />
                         <input
                             type="text"
@@ -143,35 +139,39 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                             value={nickname}
                             onChange={(e) => setNickname(e.target.value)}
                             style={{
-                                background: "var(--surface)",
-                                border: "1px solid var(--border)",
-                                borderRadius: "8px",
+                                background: "var(--color-canvas)",
+                                border: "1px solid var(--color-hairline)",
+                                borderRadius: "var(--radius-sm)",
                                 padding: "10px 14px",
-                                color: "var(--text)",
-                                fontSize: "0.85rem",
+                                color: "var(--color-ink)",
+                                fontSize: "17px",
                                 outline: "none",
                                 width: "100%",
                                 boxSizing: "border-box",
+                                letterSpacing: "-0.374px",
                             }}
+                            onFocus={(e) => (e.target.style.borderColor = "var(--color-primary-focus)")}
+                            onBlur={(e) => (e.target.style.borderColor = "var(--color-hairline)")}
                         />
 
                         {error && (
-                            <p style={{ color: "#ff6b6b", fontSize: "0.8rem" }}>{error}</p>
+                            <p style={{ color: "var(--color-danger)", fontSize: "14px", letterSpacing: "-0.224px" }}>{error}</p>
                         )}
 
                         <button
                             onClick={handleInvite}
                             disabled={loading || !email}
                             style={{
-                                background: email ? "var(--accent)" : "var(--border)",
-                                color: email ? "#0f0f0f" : "var(--muted)",
+                                background: email ? "var(--color-primary)" : "var(--color-hairline)",
+                                color: email ? "var(--color-on-dark)" : "var(--color-body-muted)",
                                 border: "none",
-                                borderRadius: "8px",
-                                padding: "10px",
-                                fontSize: "0.85rem",
-                                fontWeight: 600,
+                                borderRadius: "var(--radius-pill)",
+                                padding: "11px 22px",
+                                fontSize: "17px",
+                                fontWeight: 400,
                                 cursor: email ? "pointer" : "not-allowed",
-                                fontFamily: "'DM Sans', sans-serif",
+                                fontFamily: "var(--font-text)",
+                                letterSpacing: "-0.374px",
                             }}
                         >
                             {loading ? "Inviting..." : "Send Invite"}
@@ -182,16 +182,16 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                         <div style={{ marginTop: "20px" }}>
                             <p
                                 style={{
-                                    color: "var(--muted)",
-                                    fontSize: "0.75rem",
+                                    color: "var(--color-body-muted)",
+                                    fontSize: "14px",
                                     marginBottom: "10px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "0.05em",
+                                    fontWeight: 600,
+                                    letterSpacing: "-0.224px",
                                 }}
                             >
                                 Raters ({raters.length})
                             </p>
-                            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-xs)" }}>
                                 {raters.map((rater) => (
                                     <div
                                         key={rater.id}
@@ -199,32 +199,33 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                                             display: "flex",
                                             justifyContent: "space-between",
                                             alignItems: "center",
-                                            background: "var(--surface)",
-                                            borderRadius: "8px",
+                                            background: "var(--color-surface-pearl)",
+                                            borderRadius: "var(--radius-sm)",
                                             padding: "10px 14px",
                                         }}
                                     >
                                         <div>
-                                            <p style={{ color: "var(--text)", fontSize: "0.85rem" }}>
+                                            <p style={{ color: "var(--color-ink)", fontSize: "17px", letterSpacing: "-0.374px" }}>
                                                 {rater.nickname || rater.email}
                                             </p>
                                             {rater.nickname && (
-                                                <p style={{ color: "var(--muted)", fontSize: "0.75rem" }}>
+                                                <p style={{ color: "var(--color-body-muted)", fontSize: "12px", letterSpacing: "-0.12px" }}>
                                                     {rater.email}
                                                 </p>
                                             )}
                                         </div>
-                                        <div style={{ display: "flex", gap: "8px" }}>
+                                        <div style={{ display: "flex", gap: "var(--spacing-xs)" }}>
                                             <button
                                                 onClick={() => copyLink(rater.token)}
                                                 style={{
                                                     background: "transparent",
-                                                    border: "1px solid var(--border)",
-                                                    borderRadius: "6px",
+                                                    border: "1px solid var(--color-primary)",
+                                                    borderRadius: "var(--radius-sm)",
                                                     padding: "4px 10px",
-                                                    color: "var(--muted)",
-                                                    fontSize: "0.75rem",
+                                                    color: "var(--color-primary)",
+                                                    fontSize: "12px",
                                                     cursor: "pointer",
+                                                    letterSpacing: "-0.12px",
                                                 }}
                                             >
                                                 Copy Link
@@ -233,15 +234,14 @@ export default function InviteRater({ habitId, habitTitle }: Props) {
                                                 onClick={() => handleRemoveRater(rater.id)}
                                                 style={{
                                                     background: "transparent",
-                                                    border: "1px solid #ff6b6b",
-                                                    color: "#ff6b6b",
-                                                    fontSize: "0.75rem",
+                                                    border: "1px solid var(--color-danger)",
+                                                    color: "var(--color-danger)",
+                                                    fontSize: "12px",
                                                     cursor: "pointer",
                                                     padding: "4px 10px",
-                                                    borderRadius: "6px",
+                                                    borderRadius: "var(--radius-sm)",
+                                                    letterSpacing: "-0.12px",
                                                 }}
-                                                onMouseEnter={(e) => ((e.target as HTMLButtonElement).style.color = "#ff6b6b")}
-                                                onMouseLeave={(e) => ((e.target as HTMLButtonElement).style.color = "var(--muted)")}
                                             >
                                                 Remove
                                             </button>

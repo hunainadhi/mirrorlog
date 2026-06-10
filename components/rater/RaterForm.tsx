@@ -48,11 +48,11 @@ export default function RaterForm({ raterId, habitId, weekStart }: Props) {
   if (done) {
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <p style={{ fontSize: "2rem", marginBottom: "8px" }}>◎</p>
-        <p style={{ color: "var(--text)", fontSize: "0.95rem", fontWeight: 500 }}>
+        <p style={{ fontSize: "21px", marginBottom: "var(--spacing-xs)", color: "var(--color-primary)" }}>&#10003;</p>
+        <p style={{ color: "var(--color-ink)", fontSize: "17px", fontWeight: 600, letterSpacing: "-0.374px" }}>
           Thanks for rating!
         </p>
-        <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginTop: "4px" }}>
+        <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>
           Your response is anonymous and helps them grow.
         </p>
       </div>
@@ -62,10 +62,10 @@ export default function RaterForm({ raterId, habitId, weekStart }: Props) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div>
-        <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginBottom: "12px" }}>
+        <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginBottom: "var(--spacing-sm)", letterSpacing: "-0.224px" }}>
           How consistent were they this week?
         </p>
-        <div style={{ display: "flex", gap: "8px" }}>
+        <div style={{ display: "flex", gap: "var(--spacing-xs)" }}>
           {[1, 2, 3, 4, 5].map((val) => (
             <button
               key={val}
@@ -73,14 +73,13 @@ export default function RaterForm({ raterId, habitId, weekStart }: Props) {
               style={{
                 flex: 1,
                 padding: "12px 0",
-                borderRadius: "10px",
-                border: score === val ? "2px solid var(--accent)" : "1px solid var(--border)",
-                background: score === val ? "var(--accent)" : "var(--surface)",
-                color: score === val ? "#0f0f0f" : "var(--muted)",
-                fontSize: "1rem",
-                fontWeight: 700,
+                borderRadius: "var(--radius-sm)",
+                border: score === val ? "2px solid var(--color-primary)" : "1px solid var(--color-hairline)",
+                background: score === val ? "var(--color-primary)" : "var(--color-canvas)",
+                color: score === val ? "var(--color-on-dark)" : "var(--color-body-muted)",
+                fontSize: "17px",
+                fontWeight: 600,
                 cursor: "pointer",
-                transition: "all 0.15s ease",
               }}
             >
               {val}
@@ -88,7 +87,7 @@ export default function RaterForm({ raterId, habitId, weekStart }: Props) {
           ))}
         </div>
         {score && (
-          <p style={{ color: "var(--accent)", fontSize: "0.8rem", marginTop: "8px", textAlign: "center" }}>
+          <p style={{ color: "var(--color-primary)", fontSize: "14px", marginTop: "var(--spacing-xs)", textAlign: "center", letterSpacing: "-0.224px" }}>
             {labels[score]}
           </p>
         )}
@@ -100,38 +99,41 @@ export default function RaterForm({ raterId, habitId, weekStart }: Props) {
         onChange={(e) => setNote(e.target.value)}
         rows={3}
         style={{
-          background: "#0f0f0f",
-          border: "1px solid var(--border)",
-          borderRadius: "10px",
+          background: "var(--color-canvas)",
+          border: "1px solid var(--color-hairline)",
+          borderRadius: "var(--radius-sm)",
           padding: "12px 16px",
-          color: "var(--text)",
-          fontSize: "0.85rem",
+          color: "var(--color-ink)",
+          fontSize: "17px",
           outline: "none",
           resize: "none",
           width: "100%",
           boxSizing: "border-box",
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "var(--font-text)",
+          letterSpacing: "-0.374px",
         }}
+        onFocus={(e) => (e.target.style.borderColor = "var(--color-primary-focus)")}
+        onBlur={(e) => (e.target.style.borderColor = "var(--color-hairline)")}
       />
 
       {error && (
-        <p style={{ color: "#ff6b6b", fontSize: "0.8rem" }}>{error}</p>
+        <p style={{ color: "var(--color-danger)", fontSize: "14px", letterSpacing: "-0.224px" }}>{error}</p>
       )}
 
       <button
         onClick={handleSubmit}
         disabled={!score || loading}
         style={{
-          background: score ? "var(--accent)" : "var(--border)",
-          color: score ? "#0f0f0f" : "var(--muted)",
+          background: score ? "var(--color-primary)" : "var(--color-hairline)",
+          color: score ? "var(--color-on-dark)" : "var(--color-body-muted)",
           border: "none",
-          borderRadius: "10px",
-          padding: "12px",
-          fontSize: "0.9rem",
-          fontWeight: 600,
+          borderRadius: "var(--radius-pill)",
+          padding: "11px 22px",
+          fontSize: "17px",
+          fontWeight: 400,
           cursor: score ? "pointer" : "not-allowed",
-          fontFamily: "'DM Sans', sans-serif",
-          transition: "all 0.2s",
+          fontFamily: "var(--font-text)",
+          letterSpacing: "-0.374px",
         }}
       >
         {loading ? "Submitting..." : "Submit Rating"}

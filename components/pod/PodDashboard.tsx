@@ -38,7 +38,7 @@ export default function PodDashboard({ userId, userName, pseudonym, plan }: Prop
         roomName: string;
         podId: string;
         duration: number;
-        scheduledFor: string; // add this
+        scheduledFor: string;
     } | null>(null);
 
     async function fetchSlots() {
@@ -52,25 +52,25 @@ export default function PodDashboard({ userId, userName, pseudonym, plan }: Prop
     useEffect(() => { fetchSlots(); }, []);
 
     async function handleJoin(podId: string, task: string, scheduledFor: string) {
-  const res = await fetch("/api/pods/join", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ podId, task }),
-  });
-  const data = await res.json();
-  if (res.ok) {
-    setActiveRoom({
-      token: data.token,
-      roomUrl: data.roomUrl,
-      roomName: data.roomName,
-      podId,
-      duration: 25,
-      scheduledFor,
-    });
-  } else {
-    alert(data.error);
-  }
-}
+        const res = await fetch("/api/pods/join", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ podId, task }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+            setActiveRoom({
+                token: data.token,
+                roomUrl: data.roomUrl,
+                roomName: data.roomName,
+                podId,
+                duration: 25,
+                scheduledFor,
+            });
+        } else {
+            alert(data.error);
+        }
+    }
 
     if (activeRoom) {
         return (
@@ -87,19 +87,21 @@ export default function PodDashboard({ userId, userName, pseudonym, plan }: Prop
     }
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-lg)" }}>
 
             {/* Header */}
             <div>
                 <p style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    fontSize: "1.8rem",
-                    color: "var(--text)",
+                    fontFamily: "var(--font-display)",
+                    fontSize: "28px",
+                    fontWeight: 600,
+                    color: "var(--color-ink)",
                     marginBottom: "4px",
+                    letterSpacing: "0.196px",
                 }}>
                     MirrorPod
                 </p>
-                <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "17px", letterSpacing: "-0.374px" }}>
                     Silent focus sessions with real people. Camera on, mic off.
                 </p>
             </div>
@@ -107,32 +109,32 @@ export default function PodDashboard({ userId, userName, pseudonym, plan }: Prop
             {/* User stats */}
             {userStats && (
                 <div style={{
-                    background: "var(--surface)",
-                    border: "1px solid var(--border)",
-                    borderRadius: "16px",
-                    padding: "20px 24px",
+                    background: "var(--color-canvas)",
+                    border: "1px solid var(--color-hairline)",
+                    borderRadius: "var(--radius-lg)",
+                    padding: "20px var(--spacing-lg)",
                     display: "flex",
-                    gap: "24px",
+                    gap: "var(--spacing-lg)",
                 }}>
                     <div>
-                        <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "4px" }}>Your pseudonym</p>
-                        <p style={{ color: "var(--accent)", fontWeight: 600, fontSize: "0.9rem" }}>{userStats.pseudonym}</p>
+                        <p style={{ color: "var(--color-body-muted)", fontSize: "12px", marginBottom: "4px", letterSpacing: "-0.12px" }}>Your pseudonym</p>
+                        <p style={{ color: "var(--color-primary)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>{userStats.pseudonym}</p>
                     </div>
                     <div>
-                        <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "4px" }}>Today</p>
-                        <p style={{ color: "var(--text)", fontWeight: 600, fontSize: "0.9rem" }}>
+                        <p style={{ color: "var(--color-body-muted)", fontSize: "12px", marginBottom: "4px", letterSpacing: "-0.12px" }}>Today</p>
+                        <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>
                             {userStats.podDailyCount}/{plan === "PRO" ? 6 : 2} pods
                         </p>
                     </div>
                     <div>
-                        <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "4px" }}>Streak</p>
-                        <p style={{ color: "var(--text)", fontWeight: 600, fontSize: "0.9rem" }}>
-                            {userStats.podStreak} days 🔥
+                        <p style={{ color: "var(--color-body-muted)", fontSize: "12px", marginBottom: "4px", letterSpacing: "-0.12px" }}>Streak</p>
+                        <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>
+                            {userStats.podStreak} days
                         </p>
                     </div>
                     <div>
-                        <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginBottom: "4px" }}>This month</p>
-                        <p style={{ color: "var(--text)", fontWeight: 600, fontSize: "0.9rem" }}>
+                        <p style={{ color: "var(--color-body-muted)", fontSize: "12px", marginBottom: "4px", letterSpacing: "-0.12px" }}>This month</p>
+                        <p style={{ color: "var(--color-ink)", fontWeight: 600, fontSize: "17px", letterSpacing: "-0.374px" }}>
                             {userStats.podMonthlyCount}/{plan === "PRO" ? 30 : 10}
                         </p>
                     </div>
@@ -140,7 +142,7 @@ export default function PodDashboard({ userId, userName, pseudonym, plan }: Prop
             )}
 
             {loading ? (
-                <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>Loading slots...</p>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "17px", letterSpacing: "-0.374px" }}>Loading slots...</p>
             ) : (
                 <SlotBrowser
                     slots={slots}

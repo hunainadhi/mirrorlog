@@ -19,11 +19,18 @@ export default async function HabitReportPage({ params }: Props) {
     if (!habit) return notFound();
 
     return (
-        <div style={{ minHeight: "100vh", background: "var(--bg)", padding: "0 16px" }}>
+        <div style={{ minHeight: "100vh", background: "var(--color-canvas)", padding: "0 16px" }}>
             <div style={{ maxWidth: "480px", margin: "0 auto", paddingTop: "48px" }}>
 
-                <a href="/dashboard" style={{ color: "var(--muted)", fontSize: "0.85rem", textDecoration: "none", display: "inline-block", marginBottom: "32px" }}>
-                    Back to dashboard
+                <a href="/dashboard" style={{
+                    color: "var(--color-primary)",
+                    fontSize: "17px",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    marginBottom: "var(--spacing-xl)",
+                    letterSpacing: "-0.374px",
+                }}>
+                    &lsaquo; Back to dashboard
                 </a>
                 <HabitReport
                     habitId={id}

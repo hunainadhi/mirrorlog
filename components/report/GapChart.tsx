@@ -17,25 +17,25 @@ export default function GapChart({ weeks }: Props) {
   return (
     <div
       style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: "16px",
-        padding: "24px",
+        background: "var(--color-canvas)",
+        border: "1px solid var(--color-hairline)",
+        borderRadius: "var(--radius-lg)",
+        padding: "var(--spacing-lg)",
       }}
     >
       <p
         style={{
-          color: "var(--muted)",
-          fontSize: "0.75rem",
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
+          color: "var(--color-body-muted)",
+          fontSize: "14px",
+          fontWeight: 600,
+          letterSpacing: "-0.224px",
           marginBottom: "20px",
         }}
       >
         Trend over time
       </p>
 
-      <div style={{ display: "flex", alignItems: "flex-end", gap: "12px", height: "100px" }}>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: "var(--spacing-sm)", height: "100px" }}>
         {weeks.map((week, i) => (
           <div
             key={i}
@@ -55,7 +55,7 @@ export default function GapChart({ weeks }: Props) {
                   style={{
                     width: "12px",
                     height: `${(week.selfScore / maxScore) * 80}px`,
-                    background: "var(--muted)",
+                    background: "var(--color-body-muted)",
                     borderRadius: "3px 3px 0 0",
                   }}
                   title={`You: ${week.selfScore}`}
@@ -66,14 +66,14 @@ export default function GapChart({ weeks }: Props) {
                   style={{
                     width: "12px",
                     height: `${(week.circleScore / maxScore) * 80}px`,
-                    background: "var(--accent)",
+                    background: "var(--color-primary)",
                     borderRadius: "3px 3px 0 0",
                   }}
                   title={`Circle: ${week.circleScore}`}
                 />
               )}
             </div>
-            <p style={{ color: "var(--muted)", fontSize: "0.6rem" }}>
+            <p style={{ color: "var(--color-body-muted)", fontSize: "12px", letterSpacing: "-0.12px" }}>
               W{i + 1}
             </p>
           </div>
@@ -82,12 +82,12 @@ export default function GapChart({ weeks }: Props) {
 
       <div style={{ display: "flex", gap: "16px", marginTop: "16px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: "var(--muted)" }} />
-          <p style={{ color: "var(--muted)", fontSize: "0.75rem" }}>You</p>
+          <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: "var(--color-body-muted)" }} />
+          <p style={{ color: "var(--color-body-muted)", fontSize: "12px", letterSpacing: "-0.12px" }}>You</p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: "var(--accent)" }} />
-          <p style={{ color: "var(--muted)", fontSize: "0.75rem" }}>Circle</p>
+          <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: "var(--color-primary)" }} />
+          <p style={{ color: "var(--color-body-muted)", fontSize: "12px", letterSpacing: "-0.12px" }}>Circle</p>
         </div>
       </div>
     </div>

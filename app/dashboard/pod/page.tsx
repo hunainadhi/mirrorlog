@@ -11,7 +11,7 @@ export default async function PodPage() {
   if (!user) return null;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", padding: "0 16px" }}>
+    <div style={{ minHeight: "100vh", background: "var(--color-canvas)", padding: "0 16px" }}>
       <div style={{ maxWidth: "640px", margin: "0 auto", paddingTop: "48px" }}>
 
         {/* Header */}
@@ -19,32 +19,33 @@ export default async function PodPage() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "24px",
+          marginBottom: "var(--spacing-lg)",
         }}>
           <div>
             <h1 style={{
-              fontFamily: "'DM Serif Display', serif",
-              fontSize: "2.2rem",
-              color: "var(--text)",
-              lineHeight: 1.1,
+              fontFamily: "var(--font-display)",
+              fontSize: "28px",
+              fontWeight: 600,
+              color: "var(--color-ink)",
+              lineHeight: 1.14,
+              letterSpacing: "0.196px",
               margin: 0,
             }}>
               MirrorLog
             </h1>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px" }}>
-              <p style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 500, margin: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-xs)", marginTop: "var(--spacing-xs)" }}>
+              <p style={{ color: "var(--color-ink)", fontSize: "14px", fontWeight: 400, margin: 0, letterSpacing: "-0.224px" }}>
                 {user.name}
               </p>
-              <span style={{ color: "var(--border)" }}>·</span>
+              <span style={{ color: "var(--color-hairline)" }}>&middot;</span>
               <span style={{
-                background: user.plan === "PRO" ? "var(--accent)" : "var(--surface)",
-                color: user.plan === "PRO" ? "#0f0f0f" : "var(--muted)",
-                fontSize: "0.7rem",
-                fontWeight: 700,
+                background: user.plan === "PRO" ? "var(--color-primary)" : "var(--color-canvas-parchment)",
+                color: user.plan === "PRO" ? "var(--color-on-dark)" : "var(--color-body-muted)",
+                fontSize: "12px",
+                fontWeight: 600,
                 padding: "3px 10px",
-                borderRadius: "100px",
-                border: "1px solid var(--border)",
-                letterSpacing: "0.05em",
+                borderRadius: "var(--radius-pill)",
+                letterSpacing: "-0.12px",
               }}>
                 {user.plan}
               </span>
@@ -53,23 +54,24 @@ export default async function PodPage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <a href="/dashboard/settings" style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: "8px",
+              background: "var(--color-canvas)",
+              border: "1px solid var(--color-hairline)",
+              borderRadius: "var(--radius-sm)",
               padding: "8px 14px",
-              color: "var(--muted)",
-              fontSize: "0.8rem",
+              color: "var(--color-body-muted)",
+              fontSize: "14px",
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
               gap: "6px",
+              letterSpacing: "-0.224px",
             }}>
-              ⚙️ Settings
+              Settings
             </a>
             <UserButton
               appearance={{
                 elements: {
-                  avatarBox: { width: 48, height: 48 },
+                  avatarBox: { width: 44, height: 44 },
                 },
               }}
             />
@@ -79,22 +81,22 @@ export default async function PodPage() {
         {/* Tab Toggle */}
         <div style={{
           display: "flex",
-          background: "var(--surface)",
-          borderRadius: "12px",
+          background: "var(--color-canvas-parchment)",
+          borderRadius: "var(--radius-md)",
           padding: "4px",
-          marginBottom: "32px",
-          border: "1px solid var(--border)",
+          marginBottom: "var(--spacing-xl)",
         }}>
           <a href="/dashboard" style={{
             flex: 1,
             textAlign: "center",
             padding: "10px",
-            borderRadius: "8px",
+            borderRadius: "var(--radius-sm)",
             background: "transparent",
-            color: "var(--muted)",
+            color: "var(--color-body-muted)",
             textDecoration: "none",
-            fontSize: "0.85rem",
-            fontWeight: 600,
+            fontSize: "14px",
+            fontWeight: 400,
+            letterSpacing: "-0.224px",
           }}>
             MirrorPulse
           </a>
@@ -102,12 +104,13 @@ export default async function PodPage() {
             flex: 1,
             textAlign: "center",
             padding: "10px",
-            borderRadius: "8px",
-            background: "var(--accent)",
-            color: "#0f0f0f",
+            borderRadius: "var(--radius-sm)",
+            background: "var(--color-primary)",
+            color: "var(--color-on-dark)",
             textDecoration: "none",
-            fontSize: "0.85rem",
-            fontWeight: 700,
+            fontSize: "14px",
+            fontWeight: 600,
+            letterSpacing: "-0.224px",
           }}>
             MirrorPod
           </a>
@@ -120,15 +123,6 @@ export default async function PodPage() {
           plan={user.plan}
         />
       </div>
-
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        ::placeholder { color: #3a3a3a; }
-        * { box-sizing: border-box; }
-      `}</style>
     </div>
   );
 }

@@ -34,11 +34,11 @@ export default function HabitList({ habits, onHabitDeleted }: Props) {
                 marginTop: "16px",
                 textAlign: "center",
                 padding: "48px 0",
-                color: "var(--muted)",
+                color: "var(--color-body-muted)",
             }}>
-                <p style={{ fontSize: "2rem" }}>◎</p>
-                <p style={{ marginTop: "8px", fontSize: "0.9rem" }}>
-                    No habits yet. Add one above.
+                <p style={{ fontSize: "17px", fontWeight: 600 }}>No habits yet</p>
+                <p style={{ marginTop: "var(--spacing-xs)", fontSize: "14px", letterSpacing: "-0.224px" }}>
+                    Add one above to get started.
                 </p>
             </div>
         );
@@ -49,26 +49,25 @@ export default function HabitList({ habits, onHabitDeleted }: Props) {
             marginTop: "16px",
             display: "flex",
             flexDirection: "column",
-            gap: "12px",
+            gap: "var(--spacing-sm)",
         }}>
-            {habits.map((habit, i) => (
+            {habits.map((habit) => (
                 <div
                     key={habit.id}
                     style={{
-                        background: "var(--surface)",
-                        border: "1px solid var(--border)",
-                        borderRadius: "16px",
-                        padding: "20px 24px",
-                        animation: `fadeUp 0.3s ease ${i * 0.05}s both`,
+                        background: "var(--color-canvas)",
+                        border: "1px solid var(--color-hairline)",
+                        borderRadius: "var(--radius-lg)",
+                        padding: "20px var(--spacing-lg)",
                     }}
                 >
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--spacing-sm)" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                             <div style={{
                                 width: "8px",
                                 height: "8px",
                                 borderRadius: "50%",
-                                background: "var(--accent)",
+                                background: "var(--color-primary)",
                                 flexShrink: 0,
                             }} />
                             <div>
@@ -78,19 +77,20 @@ export default function HabitList({ habits, onHabitDeleted }: Props) {
                                 >
                                     <p
                                         style={{
-                                            color: "var(--text)",
-                                            fontWeight: 500,
-                                            fontSize: "0.95rem",
+                                            color: "var(--color-ink)",
+                                            fontWeight: 600,
+                                            fontSize: "17px",
                                             cursor: "pointer",
+                                            letterSpacing: "-0.374px",
                                         }}
-                                        onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--accent)")}
-                                        onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--text)")}
+                                        onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--color-primary)")}
+                                        onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--color-ink)")}
                                     >
                                         {habit.title}
                                     </p>
                                 </Link>
                                 {habit.description && (
-                                    <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginTop: "4px" }}>
+                                    <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>
                                         {habit.description}
                                     </p>
                                 )}
@@ -101,15 +101,14 @@ export default function HabitList({ habits, onHabitDeleted }: Props) {
                             disabled={deletingId === habit.id}
                             style={{
                                 background: "transparent",
-                                border: "1px solid #ff6b6b",
-                                color: "#ff6b6b",
+                                border: "1px solid var(--color-danger)",
+                                color: "var(--color-danger)",
                                 cursor: "pointer",
-                                fontSize: "0.8rem",
+                                fontSize: "14px",
                                 padding: "4px 10px",
-                                borderRadius: "6px",
+                                borderRadius: "var(--radius-sm)",
+                                letterSpacing: "-0.224px",
                             }}
-                            onMouseEnter={(e) => ((e.target as HTMLButtonElement).style.color = "#ff6b6b")}
-                            onMouseLeave={(e) => ((e.target as HTMLButtonElement).style.color = "var(--muted)")}
                         >
                             {deletingId === habit.id ? "Deleting..." : "Delete"}
                         </button>

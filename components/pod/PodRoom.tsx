@@ -7,7 +7,7 @@ interface Props {
   roomUrl: string;
   podId: string;
   duration: number;
-  scheduledFor: string; 
+  scheduledFor: string;
   pseudonym: string;
   onLeave: () => void;
 }
@@ -21,7 +21,7 @@ function getTimeLeft(scheduledFor: string, duration: number): number {
 }
 
 export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor, pseudonym, onLeave }: Props) {
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(scheduledFor, duration));
+    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(scheduledFor, duration));
     const [cameraWarning, setCameraWarning] = useState(false);
     const [cameraOffSeconds, setCameraOffSeconds] = useState(0);
 
@@ -42,6 +42,7 @@ export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor,
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     const dailyUrl = `${roomUrl}?t=${token}&micOff=1`;
+
     async function handleLeave() {
         await fetch("/api/pods/complete", {
             method: "POST",
@@ -50,6 +51,7 @@ export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor,
         });
         onLeave();
     }
+
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 
@@ -57,22 +59,26 @@ export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor,
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
                     <p style={{
-                        fontFamily: "'DM Serif Display', serif",
-                        fontSize: "1.5rem",
-                        color: "var(--text)",
+                        fontFamily: "var(--font-display)",
+                        fontSize: "28px",
+                        fontWeight: 600,
+                        color: "var(--color-ink)",
                         margin: 0,
+                        letterSpacing: "0.196px",
                     }}>
                         Focus Session
                     </p>
-                    <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginTop: "4px" }}>
-                        You are <span style={{ color: "var(--accent)" }}>{pseudonym}</span> · Mic permanently off
+                    <p style={{ color: "var(--color-body-muted)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>
+                        You are <span style={{ color: "var(--color-primary)" }}>{pseudonym}</span> · Mic permanently off
                     </p>
                 </div>
                 <p style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    fontSize: "2.5rem",
-                    color: timeLeft < 60 ? "#ff6b6b" : "var(--accent)",
+                    fontFamily: "var(--font-display)",
+                    fontSize: "40px",
+                    fontWeight: 600,
+                    color: timeLeft < 60 ? "var(--color-danger)" : "var(--color-primary)",
                     margin: 0,
+                    lineHeight: 1.1,
                 }}>
                     {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
                 </p>
@@ -81,16 +87,16 @@ export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor,
             {/* Camera warning */}
             {cameraWarning && (
                 <div style={{
-                    background: "#ff6b6b22",
-                    border: "1px solid #ff6b6b",
-                    borderRadius: "12px",
+                    background: "rgba(255,59,48,0.08)",
+                    border: "1px solid var(--color-danger)",
+                    borderRadius: "var(--radius-md)",
                     padding: "16px",
                     textAlign: "center",
                 }}>
-                    <p style={{ color: "#ff6b6b", fontWeight: 600, margin: 0 }}>
-                        📹 Your camera has been off for 2+ minutes
+                    <p style={{ color: "var(--color-danger)", fontWeight: 600, margin: 0, fontSize: "17px", letterSpacing: "-0.374px" }}>
+                        Your camera has been off for 2+ minutes
                     </p>
-                    <p style={{ color: "#ff6b6b", fontSize: "0.85rem", marginTop: "4px" }}>
+                    <p style={{ color: "var(--color-danger)", fontSize: "14px", marginTop: "4px", letterSpacing: "-0.224px" }}>
                         Please turn it back on. Continued absence may trigger a vote to remove you.
                     </p>
                 </div>
@@ -103,40 +109,40 @@ export default function PodRoom({ token, roomUrl, podId, duration, scheduledFor,
                 style={{
                     width: "100%",
                     height: "500px",
-                    border: "1px solid var(--border)",
-                    borderRadius: "16px",
-                    background: "#0f0f0f",
+                    border: "1px solid var(--color-hairline)",
+                    borderRadius: "var(--radius-lg)",
+                    background: "var(--color-canvas-parchment)",
                 }}
             />
 
             {/* Rules reminder */}
             <div style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: "12px",
+                background: "var(--color-canvas-parchment)",
+                borderRadius: "var(--radius-md)",
                 padding: "14px 18px",
                 display: "flex",
                 gap: "20px",
             }}>
-                <p style={{ color: "var(--muted)", fontSize: "0.8rem", margin: 0 }}>🔇 Mic off</p>
-                <p style={{ color: "var(--muted)", fontSize: "0.8rem", margin: 0 }}>📹 Camera on</p>
-                <p style={{ color: "var(--muted)", fontSize: "0.8rem", margin: 0 }}>💬 No chat</p>
-                <p style={{ color: "var(--muted)", fontSize: "0.8rem", margin: 0 }}>🎯 Stay focused</p>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "14px", margin: 0, letterSpacing: "-0.224px" }}>Mic off</p>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "14px", margin: 0, letterSpacing: "-0.224px" }}>Camera on</p>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "14px", margin: 0, letterSpacing: "-0.224px" }}>No chat</p>
+                <p style={{ color: "var(--color-body-muted)", fontSize: "14px", margin: 0, letterSpacing: "-0.224px" }}>Stay focused</p>
             </div>
 
             {/* Leave button */}
             <button
                 onClick={handleLeave}
                 style={{
-                    background: "#ff6b6b22",
-                    border: "1px solid #ff6b6b",
-                    borderRadius: "10px",
-                    padding: "12px",
-                    color: "#ff6b6b",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
+                    background: "transparent",
+                    border: "1px solid var(--color-danger)",
+                    borderRadius: "var(--radius-pill)",
+                    padding: "11px 22px",
+                    color: "var(--color-danger)",
+                    fontSize: "17px",
+                    fontWeight: 400,
                     cursor: "pointer",
-                    fontFamily: "'DM Sans', sans-serif",
+                    fontFamily: "var(--font-text)",
+                    letterSpacing: "-0.374px",
                 }}
             >
                 Leave Session
